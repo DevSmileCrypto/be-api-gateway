@@ -19,6 +19,7 @@ public class AuthenticationProperties {
     @Setter
     public static class Path {
         private String logout;
+        private String refreshServerProperties;
         private Token token;
         private HiveKeychain hiveKeychain;
         private HiveSigner hiveSigner;

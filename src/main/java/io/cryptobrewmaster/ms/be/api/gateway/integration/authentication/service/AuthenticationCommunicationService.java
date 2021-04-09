@@ -1,8 +1,8 @@
 package io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.service;
 
 import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.dto.AccountAuthenticationDto;
-import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.dto.AuthenticationTokenPairDto;
-import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.dto.RegistrationOrLoginDto;
+import io.cryptobrewmaster.ms.be.api.gateway.web.model.authentication.AuthenticationTokenPairDto;
+import io.cryptobrewmaster.ms.be.api.gateway.web.model.authentication.RegistrationOrLoginDto;
 import org.springframework.util.MultiValueMap;
 
 /**
@@ -34,20 +34,20 @@ public interface AuthenticationCommunicationService {
     String hiveSignerLoginRedirect(MultiValueMap<String, String> queryParams);
 
     /**
-     * Token pair refresh authentication token pair dto.
+     * Refresh token pair authentication token pair dto.
      *
      * @param refreshToken the refresh token
      * @return the authentication token pair dto
      */
-    AuthenticationTokenPairDto tokenPairRefresh(String refreshToken);
+    AuthenticationTokenPairDto refreshTokenPair(String refreshToken);
 
     /**
-     * Access token validate account authentication dto.
+     * Validate access token account authentication dto.
      *
      * @param accessToken the access token
      * @return the account authentication dto
      */
-    AccountAuthenticationDto accessTokenValidate(String accessToken);
+    AccountAuthenticationDto validateAccessToken(String accessToken);
 
     /**
      * Logout.
@@ -55,4 +55,10 @@ public interface AuthenticationCommunicationService {
      * @param accountId the account id
      */
     void logout(String accountId);
+
+    /**
+     * Refresh properties.
+     */
+    void refreshServerProperties();
+
 }

@@ -1,9 +1,11 @@
 package io.cryptobrewmaster.ms.be.api.gateway.configuration.rest;
 
-import io.cryptobrewmaster.ms.be.api.gateway.configuration.rest.interceptor.JsonContentTypeRestTemplateInterceptor;
 import io.cryptobrewmaster.ms.be.api.gateway.configuration.rest.properties.RestTemplateProperties;
-import io.cryptobrewmaster.ms.be.api.gateway.exception.integration.AuthenticationErrorHandler;
+import io.cryptobrewmaster.ms.be.api.gateway.integration.account.properties.AccountProperties;
 import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.properties.AuthenticationProperties;
+import io.cryptobrewmaster.ms.be.library.configuration.rest.interceptor.JsonContentTypeRestTemplateInterceptor;
+import io.cryptobrewmaster.ms.be.library.exception.integration.AccountErrorHandler;
+import io.cryptobrewmaster.ms.be.library.exception.integration.AuthenticationErrorHandler;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -56,6 +58,16 @@ public class RestTemplateConfiguration {
                 .interceptors(new JsonContentTypeRestTemplateInterceptor())
                 .setConnectTimeout(Duration.ofMillis(authenticationProperties.getTimeout().getConnect()))
                 .setReadTimeout(Duration.ofMillis(authenticationProperties.getTimeout().getRead()))
+                .build();
+    }
+
+    @Bean(name = "accountRestTemplate")
+    public RestTemplate accountRestTemplate(RestTemplateBuilder restTemplateBuilder, AccountProperties accountProperties) {
+        return restTemplateBuilder.errorHandler(new AccountErrorHandler())
+                .rootUri(accountProperties.getUri())
+                .interceptors(new JsonContentTypeRestTemplateInterceptor())
+                .setConnectTimeout(Duration.ofMillis(accountProperties.getTimeout().getConnect()))
+                .setReadTimeout(Duration.ofMillis(accountProperties.getTimeout().getRead()))
                 .build();
     }
 

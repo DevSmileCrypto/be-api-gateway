@@ -68,4 +68,13 @@ public class AuthenticationUriServiceImpl implements AuthenticationUriService {
                 .encode()
                 .toUri();
     }
+
+    @Override
+    public URI getRefreshServerPropertiesUri() {
+        return UriComponentsBuilder.fromUriString(authenticationProperties.getUri())
+                .path(authenticationProperties.getPath().getRefreshServerProperties())
+                .build()
+                .encode()
+                .toUri();
+    }
 }

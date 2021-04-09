@@ -55,4 +55,11 @@ public interface AuthenticationUriService {
      */
     URI getLogoutUri(String accountId);
 
+    /**
+     * Gets refresh server properties uri.
+     *
+     * @return the refresh server properties uri
+     */
+    URI getRefreshServerPropertiesUri();
+
 }

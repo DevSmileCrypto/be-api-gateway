@@ -1,14 +1,9 @@
 package io.cryptobrewmaster.ms.be.api.gateway.configuration.security.model;
 
 import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.dto.AccountAuthenticationDto;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-
-import java.util.ArrayList;
 
 @Getter
 @EqualsAndHashCode(callSuper = true)
@@ -20,7 +15,7 @@ public class AccountAuthentication extends AbstractAuthenticationToken {
     private final String accountId;
 
     public AccountAuthentication(AccountAuthenticationDto accountAuthenticationDto) {
-        super(new ArrayList<>());
+        super(accountAuthenticationDto.getAuthenticationRoles());
         this.accountId = accountAuthenticationDto.getAccountId();
         this.principal = accountAuthenticationDto.getAccountId();
         this.credentials = "";
