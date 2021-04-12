@@ -1,4 +1,4 @@
-package io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.properties;
+package io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.properties;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,8 +1,8 @@
 package io.cryptobrewmaster.ms.be.api.gateway.configuration.websocket;
 
+import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.service.AuthenticationCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.configuration.websocket.interceptor.WebSocketAuthenticationChannelInterceptor;
 import io.cryptobrewmaster.ms.be.api.gateway.exception.websocket.WebSocketErrorHandler;
-import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.service.AuthenticationCommunicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
@@ -20,15 +20,15 @@ public class WebSocketConfigurer implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/account", "/topic");
-        config.setUserDestinationPrefix("/account");
-        config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/account", "/topic" );
+        config.setUserDestinationPrefix("/account" );
+        config.setApplicationDestinationPrefixes("/app" );
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.setErrorHandler(new WebSocketErrorHandler());
-        registry.addEndpoint("/api/websocket").setAllowedOrigins("*");
+        registry.addEndpoint("/api/websocket" ).setAllowedOrigins("*" );
     }
 
     @Override

@@ -1,4 +1,4 @@
-package io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.uri;
+package io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.uri;
 
 import org.springframework.util.MultiValueMap;
 
@@ -37,7 +37,7 @@ public interface AuthenticationUriService {
      * @param refreshToken the refresh token
      * @return the token pair refresh uri
      */
-    URI getTokenPairRefreshUri(String refreshToken);
+    URI getRefreshTokenPairUri(String refreshToken);
 
     /**
      * Gets access token validate uri.

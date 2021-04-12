@@ -1,11 +1,12 @@
-package io.cryptobrewmaster.ms.be.api.gateway.configuration.security.authorization;
+package io.cryptobrewmaster.ms.be.api.gateway.configuration.security.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.dto.AccountAuthenticationDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.service.AuthenticationCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.configuration.security.model.AccountAuthentication;
-import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.dto.AccountAuthenticationDto;
-import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.service.AuthenticationCommunicationService;
 import io.cryptobrewmaster.ms.be.library.exception.BaseException;
 import io.cryptobrewmaster.ms.be.library.exception.dto.ErrorInfoDto;
+import io.cryptobrewmaster.ms.be.library.exception.integration.RemoteMsPassThroughException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
@@ -50,7 +51,12 @@ public class AuthenticationFilter extends GenericFilterBean {
         } catch (BaseException e) {
             SecurityContextHolder.clearContext();
             log(httpRequest, e);
-            returnErrorInResponse(httpResponse, e);
+            returnErrorInResponse(httpResponse, ErrorInfoDto.of(e));
+            return;
+        } catch (RemoteMsPassThroughException e) {
+            SecurityContextHolder.clearContext();
+            log(httpRequest, e);
+            returnErrorInResponse(httpResponse, e.getErrorInfoDto());
             return;
         }
 
@@ -59,14 +65,13 @@ public class AuthenticationFilter extends GenericFilterBean {
 
     private String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader(HttpHeaders.AUTHORIZATION);
-        if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {
+        if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer " )) {
             return bearerToken.substring(7);
         }
         return "";
     }
 
-    private void returnErrorInResponse(HttpServletResponse response, BaseException e) throws IOException {
-        ErrorInfoDto errorInfoDto = ErrorInfoDto.of(e);
+    private void returnErrorInResponse(HttpServletResponse response, ErrorInfoDto errorInfoDto) throws IOException {
         response.setStatus(errorInfoDto.getStatus());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 

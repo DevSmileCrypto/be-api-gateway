@@ -1,4 +1,4 @@
-package io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.dto;
+package io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.cryptobrewmaster.ms.be.api.gateway.constants.AuthenticationRole;

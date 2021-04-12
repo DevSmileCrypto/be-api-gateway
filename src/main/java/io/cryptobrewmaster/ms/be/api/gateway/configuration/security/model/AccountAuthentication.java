@@ -1,6 +1,6 @@
 package io.cryptobrewmaster.ms.be.api.gateway.configuration.security.model;
 
-import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.dto.AccountAuthenticationDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.dto.AccountAuthenticationDto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -26,7 +26,7 @@ public class AccountAuthentication extends AbstractAuthenticationToken {
     public void setAuthenticated(boolean isAuthenticated) {
         if (isAuthenticated) {
             throw new IllegalArgumentException(
-                    "Cannot set this token to trusted - use constructor which takes a GrantedAuthority list instead");
+                    "Cannot set this token to trusted - use constructor which takes a GrantedAuthority list instead" );
         }
 
         super.setAuthenticated(false);

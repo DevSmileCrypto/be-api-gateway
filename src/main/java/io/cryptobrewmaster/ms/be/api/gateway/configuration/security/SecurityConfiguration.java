@@ -1,6 +1,8 @@
 package io.cryptobrewmaster.ms.be.api.gateway.configuration.security;
 
-import io.cryptobrewmaster.ms.be.api.gateway.configuration.security.authorization.AuthenticationConfigurer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.service.AuthenticationCommunicationService;
+import io.cryptobrewmaster.ms.be.api.gateway.configuration.security.authentication.AuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,13 +13,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final AuthenticationConfigurer authenticationConfigurer;
+    private final AuthenticationCommunicationService authenticationCommunicationService;
+    private final ObjectMapper mapper;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -45,10 +49,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/actuator/refresh").hasAuthority("ADMIN")
+                .antMatchers("/actuator/refresh" ).hasAuthority("ADMIN" )
                 .anyRequest().authenticated()
                 .and()
-                .apply(authenticationConfigurer);
+                .addFilterAfter(new AuthenticationFilter(authenticationCommunicationService, mapper), UsernamePasswordAuthenticationFilter.class);
     }
 
 }

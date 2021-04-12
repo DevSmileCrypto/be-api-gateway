@@ -1,8 +1,8 @@
 package io.cryptobrewmaster.ms.be.api.gateway.configuration.rest;
 
+import io.cryptobrewmaster.ms.be.api.gateway.communication.account.properties.AccountProperties;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.properties.AuthenticationProperties;
 import io.cryptobrewmaster.ms.be.api.gateway.configuration.rest.properties.RestTemplateProperties;
-import io.cryptobrewmaster.ms.be.api.gateway.integration.account.properties.AccountProperties;
-import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.properties.AuthenticationProperties;
 import io.cryptobrewmaster.ms.be.library.configuration.rest.interceptor.JsonContentTypeRestTemplateInterceptor;
 import io.cryptobrewmaster.ms.be.library.exception.integration.AccountErrorHandler;
 import io.cryptobrewmaster.ms.be.library.exception.integration.AuthenticationErrorHandler;
@@ -51,7 +51,7 @@ public class RestTemplateConfiguration {
                 .requestFactory(() -> new HttpComponentsClientHttpRequestFactory(httpClient));
     }
 
-    @Bean(name = "authenticationRestTemplate")
+    @Bean(name = "authenticationRestTemplate" )
     public RestTemplate authenticationRestTemplate(RestTemplateBuilder restTemplateBuilder, AuthenticationProperties authenticationProperties) {
         return restTemplateBuilder.errorHandler(new AuthenticationErrorHandler())
                 .rootUri(authenticationProperties.getUri())
@@ -61,7 +61,7 @@ public class RestTemplateConfiguration {
                 .build();
     }
 
-    @Bean(name = "accountRestTemplate")
+    @Bean(name = "accountRestTemplate" )
     public RestTemplate accountRestTemplate(RestTemplateBuilder restTemplateBuilder, AccountProperties accountProperties) {
         return restTemplateBuilder.errorHandler(new AccountErrorHandler())
                 .rootUri(accountProperties.getUri())

@@ -1,7 +1,7 @@
 package io.cryptobrewmaster.ms.be.api.gateway.service;
 
-import io.cryptobrewmaster.ms.be.api.gateway.integration.account.service.AccountCommunicationService;
-import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.service.AuthenticationCommunicationService;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.account.service.AccountCommunicationService;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.service.AuthenticationCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.web.model.server.ServerOperationDto;
 import io.cryptobrewmaster.ms.be.library.constants.MicroServiceName;
 import lombok.RequiredArgsConstructor;

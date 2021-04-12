@@ -1,4 +1,4 @@
-package io.cryptobrewmaster.ms.be.api.gateway.integration.account.service;
+package io.cryptobrewmaster.ms.be.api.gateway.communication.account.service;
 
 /**
  * The interface Account communication service.

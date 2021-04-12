@@ -1,6 +1,6 @@
-package io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.service;
+package io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.service;
 
-import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.dto.AccountAuthenticationDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.dto.AccountAuthenticationDto;
 import io.cryptobrewmaster.ms.be.api.gateway.web.model.authentication.AuthenticationTokenPairDto;
 import io.cryptobrewmaster.ms.be.api.gateway.web.model.authentication.RegistrationOrLoginDto;
 import org.springframework.util.MultiValueMap;

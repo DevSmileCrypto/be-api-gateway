@@ -1,4 +1,4 @@
-package io.cryptobrewmaster.ms.be.api.gateway.integration.account.uri;
+package io.cryptobrewmaster.ms.be.api.gateway.communication.account.uri;
 
 import java.net.URI;
 

@@ -1,6 +1,6 @@
-package io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.uri;
+package io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.uri;
 
-import io.cryptobrewmaster.ms.be.api.gateway.integration.authentication.properties.AuthenticationProperties;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.properties.AuthenticationProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
@@ -43,7 +43,7 @@ public class AuthenticationUriServiceImpl implements AuthenticationUriService {
     }
 
     @Override
-    public URI getTokenPairRefreshUri(String refreshToken) {
+    public URI getRefreshTokenPairUri(String refreshToken) {
         return UriComponentsBuilder.fromUriString(authenticationProperties.getUri())
                 .path(authenticationProperties.getPath().getToken().getRefresh())
                 .buildAndExpand(refreshToken)

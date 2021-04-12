@@ -1,9 +1,8 @@
-package io.cryptobrewmaster.ms.be.api.gateway.integration.account.uri;
+package io.cryptobrewmaster.ms.be.api.gateway.communication.account.uri;
 
-import io.cryptobrewmaster.ms.be.api.gateway.integration.account.properties.AccountProperties;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.account.properties.AccountProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
