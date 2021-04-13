@@ -2,10 +2,10 @@ package io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.servi
 
 import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.dto.AccountAuthenticationDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.uri.AuthenticationUriService;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.base.BaseCommunicationService;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.base.model.RequestLog;
 import io.cryptobrewmaster.ms.be.api.gateway.web.model.authentication.AuthenticationTokenPairDto;
 import io.cryptobrewmaster.ms.be.api.gateway.web.model.authentication.RegistrationOrLoginDto;
+import io.cryptobrewmaster.ms.be.library.communication.BaseCommunicationService;
+import io.cryptobrewmaster.ms.be.library.communication.model.RequestLog;
 import io.cryptobrewmaster.ms.be.library.constants.MicroServiceName;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;

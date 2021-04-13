@@ -1,8 +1,8 @@
 package io.cryptobrewmaster.ms.be.api.gateway.communication.account.service;
 
 import io.cryptobrewmaster.ms.be.api.gateway.communication.account.uri.AccountUriService;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.base.BaseCommunicationService;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.base.model.RequestLog;
+import io.cryptobrewmaster.ms.be.library.communication.BaseCommunicationService;
+import io.cryptobrewmaster.ms.be.library.communication.model.RequestLog;
 import io.cryptobrewmaster.ms.be.library.constants.MicroServiceName;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;

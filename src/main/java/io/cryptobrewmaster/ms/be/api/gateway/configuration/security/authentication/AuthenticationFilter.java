@@ -13,33 +13,29 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
-import static io.cryptobrewmaster.ms.be.api.gateway.exception.util.ControllerExceptionUtil.log;
+import static io.cryptobrewmaster.ms.be.library.exception.util.ControllerExceptionLogger.log;
+
 
 @RequiredArgsConstructor
-public class AuthenticationFilter extends GenericFilterBean {
+public class AuthenticationFilter extends OncePerRequestFilter {
 
     private final AuthenticationCommunicationService authenticationCommunicationService;
     private final ObjectMapper mapper;
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest httpRequest = (HttpServletRequest) req;
-        HttpServletResponse httpResponse = (HttpServletResponse) res;
-
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String token = resolveToken(httpRequest);
+            String token = resolveToken(request);
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (Objects.isNull(authentication) && StringUtils.isNotBlank(token)) {
                 AccountAuthenticationDto accountAuthenticationDto = authenticationCommunicationService.validateAccessToken(token);
@@ -50,22 +46,22 @@ public class AuthenticationFilter extends GenericFilterBean {
             }
         } catch (BaseException e) {
             SecurityContextHolder.clearContext();
-            log(httpRequest, e);
-            returnErrorInResponse(httpResponse, ErrorInfoDto.of(e));
+            log(request, e);
+            returnErrorInResponse(response, ErrorInfoDto.of(e));
             return;
         } catch (RemoteMsPassThroughException e) {
             SecurityContextHolder.clearContext();
-            log(httpRequest, e);
-            returnErrorInResponse(httpResponse, e.getErrorInfoDto());
+            log(request, e);
+            returnErrorInResponse(response, e.getErrorInfoDto());
             return;
         }
 
-        filterChain.doFilter(req, res);
+        filterChain.doFilter(request, response);
     }
 
     private String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader(HttpHeaders.AUTHORIZATION);
-        if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer " )) {
+        if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
         return "";
