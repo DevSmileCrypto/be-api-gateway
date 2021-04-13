@@ -2,16 +2,15 @@ package io.cryptobrewmaster.ms.be.api.gateway.service;
 
 import io.cryptobrewmaster.ms.be.api.gateway.communication.account.service.AccountCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.service.AuthenticationCommunicationService;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.core.service.CoreCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.web.model.server.ServerOperationDto;
 import io.cryptobrewmaster.ms.be.library.constants.MicroServiceName;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -23,6 +22,7 @@ public class ServerServiceImpl implements ServerService {
 
     private final AuthenticationCommunicationService authenticationCommunicationService;
     private final AccountCommunicationService accountCommunicationService;
+    private final CoreCommunicationService coreCommunicationService;
 
     private EnumMap<MicroServiceName, Runnable> refreshServersPropertiesMap = new EnumMap<>(MicroServiceName.class);
 
@@ -30,7 +30,8 @@ public class ServerServiceImpl implements ServerService {
     public void init() {
         this.refreshServersPropertiesMap = new EnumMap<>(Map.of(
                 MicroServiceName.BE_AUTHENTICATION, authenticationCommunicationService::refreshServerProperties,
-                MicroServiceName.BE_ACCOUNT, accountCommunicationService::refreshServerProperties
+                MicroServiceName.BE_ACCOUNT, accountCommunicationService::refreshServerProperties,
+                MicroServiceName.BE_CORE, coreCommunicationService::refreshServerProperties
         ));
     }
 
