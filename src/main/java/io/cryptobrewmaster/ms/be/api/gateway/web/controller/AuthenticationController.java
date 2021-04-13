@@ -34,7 +34,7 @@ public class AuthenticationController {
     @PostMapping("/login/keychain" )
     public AuthenticationTokenPairDto registrationOrLoginByKeychain(@Valid @NotNull @RequestBody RegistrationOrLoginDto registrationOrLoginDto) {
         log.info("Request to registration or login account by keychain received. {}", registrationOrLoginDto);
-        AuthenticationTokenPairDto authenticationTokenPairDto = authenticationCommunicationService.hiveKeychainLogin(registrationOrLoginDto);
+        AuthenticationTokenPairDto authenticationTokenPairDto = authenticationCommunicationService.loginHiveKeychain(registrationOrLoginDto);
         log.info("Response on registration or login account by keychain. {}", authenticationTokenPairDto);
         return authenticationTokenPairDto;
     }
@@ -42,7 +42,7 @@ public class AuthenticationController {
     @GetMapping("/login/signer" )
     public RedirectView generateRegistrationOrLoginUrlBySigner() {
         log.info("Request to generate oauth registration or login url account by signer received." );
-        String redirectUrl = authenticationCommunicationService.hiveSignerLogin();
+        String redirectUrl = authenticationCommunicationService.loginHiveSigner();
         log.info("Response on generate oauth registration or login url account by signer. Redirect url = {}", redirectUrl);
         return new RedirectView(redirectUrl);
     }
@@ -50,7 +50,7 @@ public class AuthenticationController {
     @GetMapping("/login/signer/redirect" )
     public RedirectView completeRegistrationOrLoginBySigner(@Valid @NotNull @RequestParam MultiValueMap<String, String> params) {
         log.info("Request to complete redirect oauth registration or login account by signer received." );
-        String redirectUrl = authenticationCommunicationService.hiveSignerLoginRedirect(params);
+        String redirectUrl = authenticationCommunicationService.redirectHiveSignerLogin(params);
         log.info("Response on complete redirect oauth registration or login account by signer. Redirect url = {}", redirectUrl);
         return new RedirectView(redirectUrl);
     }

@@ -31,7 +31,7 @@ public class AuthenticationCommunicationServiceImpl extends BaseCommunicationSer
     }
 
     @Override
-    public AuthenticationTokenPairDto hiveKeychainLogin(RegistrationOrLoginDto registrationOrLoginDto) {
+    public AuthenticationTokenPairDto loginHiveKeychain(RegistrationOrLoginDto registrationOrLoginDto) {
         return performRequestWithResponse(
                 authenticationUriService.getHiveKeychainLoginUri(),
                 HttpMethod.POST, registrationOrLoginDto,
@@ -48,7 +48,7 @@ public class AuthenticationCommunicationServiceImpl extends BaseCommunicationSer
     }
 
     @Override
-    public String hiveSignerLogin() {
+    public String loginHiveSigner() {
         var logArgs = List.<Object>of(getMicroServiceName());
         return performRequestWithResponse(
                 authenticationUriService.getHiveSignerLoginUri(),
@@ -63,7 +63,7 @@ public class AuthenticationCommunicationServiceImpl extends BaseCommunicationSer
     }
 
     @Override
-    public String hiveSignerLoginRedirect(MultiValueMap<String, String> queryParams) {
+    public String redirectHiveSignerLogin(MultiValueMap<String, String> queryParams) {
         var logArgs = List.<Object>of(getMicroServiceName());
         return performRequestWithResponse(
                 authenticationUriService.getHiveSignerLoginRedirectUri(queryParams),

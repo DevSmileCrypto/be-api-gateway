@@ -16,14 +16,14 @@ public interface AuthenticationCommunicationService {
      * @param registrationOrLoginDto the registration or login dto
      * @return the authentication token pair dto
      */
-    AuthenticationTokenPairDto hiveKeychainLogin(RegistrationOrLoginDto registrationOrLoginDto);
+    AuthenticationTokenPairDto loginHiveKeychain(RegistrationOrLoginDto registrationOrLoginDto);
 
     /**
      * Hive signer login string.
      *
      * @return the string
      */
-    String hiveSignerLogin();
+    String loginHiveSigner();
 
     /**
      * Hive signer login redirect string.
@@ -31,7 +31,7 @@ public interface AuthenticationCommunicationService {
      * @param queryParams the query params
      * @return the string
      */
-    String hiveSignerLoginRedirect(MultiValueMap<String, String> queryParams);
+    String redirectHiveSignerLogin(MultiValueMap<String, String> queryParams);
 
     /**
      * Refresh token pair authentication token pair dto.
