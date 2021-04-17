@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class WebSocketAuthenticationChannelInterceptor implements ChannelInterceptor {
 
-    public static final String ACCESS_TOKEN_HEADER_NAME = "Access-Token";
+    private static final String ACCESS_TOKEN_HEADER_NAME = "Access-Token";
     private final AuthenticationCommunicationService authenticationCommunicationService;
 
     @Override
