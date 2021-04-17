@@ -39,6 +39,7 @@ dependencies {
     implementation 'org.springframework.security:spring-security-messaging:5.4.0'
 
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.kafka:spring-kafka'
 
     compileOnly 'org.projectlombok:lombok'
 
