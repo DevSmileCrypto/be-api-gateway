@@ -27,7 +27,7 @@ public class AccountBalanceKafkaReceiver {
         );
 
         messagingTemplate.convertAndSendToUser(
-                accountBalanceKDto.getAccountId(), "/topic/account/balance",
+                accountBalanceKDto.getAccountId(), "/topic/balance",
                 state
         );
     }

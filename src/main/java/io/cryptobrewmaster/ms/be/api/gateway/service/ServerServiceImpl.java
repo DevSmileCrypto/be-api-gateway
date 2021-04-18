@@ -3,6 +3,7 @@ package io.cryptobrewmaster.ms.be.api.gateway.service;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.account.service.AccountCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.service.AuthenticationCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.core.service.CoreCommunicationService;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.state.service.StateCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.web.model.server.ServerOperationDto;
 import io.cryptobrewmaster.ms.be.library.constants.MicroServiceName;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class ServerServiceImpl implements ServerService {
     private final AuthenticationCommunicationService authenticationCommunicationService;
     private final AccountCommunicationService accountCommunicationService;
     private final CoreCommunicationService coreCommunicationService;
+    private final StateCommunicationService stateCommunicationService;
 
     private EnumMap<MicroServiceName, Runnable> refreshServersPropertiesMap = new EnumMap<>(MicroServiceName.class);
 
@@ -31,7 +33,8 @@ public class ServerServiceImpl implements ServerService {
         this.refreshServersPropertiesMap = new EnumMap<>(Map.of(
                 MicroServiceName.BE_AUTHENTICATION, authenticationCommunicationService::refreshServerProperties,
                 MicroServiceName.BE_ACCOUNT, accountCommunicationService::refreshServerProperties,
-                MicroServiceName.BE_CORE, coreCommunicationService::refreshServerProperties
+                MicroServiceName.BE_CORE, coreCommunicationService::refreshServerProperties,
+                MicroServiceName.BE_STATE, stateCommunicationService::refreshServerProperties
         ));
     }
 

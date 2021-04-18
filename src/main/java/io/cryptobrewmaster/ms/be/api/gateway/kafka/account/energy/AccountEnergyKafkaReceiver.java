@@ -27,7 +27,7 @@ public class AccountEnergyKafkaReceiver {
         );
 
         messagingTemplate.convertAndSendToUser(
-                accountEnergyKDto.getAccountId(), "/topic/account/energy",
+                accountEnergyKDto.getAccountId(), "/topic/energy",
                 state
         );
     }

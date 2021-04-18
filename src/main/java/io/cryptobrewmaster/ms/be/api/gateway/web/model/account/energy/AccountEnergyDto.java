@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -20,11 +19,11 @@ public class AccountEnergyDto {
     @NotNull
     private Double quantity;
     @NotNull
-    private LocalDateTime recoveryDate;
+    private Long recoveryDate;
 
     public static AccountEnergyDto of(AccountEnergyKDto accountEnergyKDto) {
         return new AccountEnergyDto(
-                accountEnergyKDto.getType(), accountEnergyKDto.getQuantity().doubleValue(),
+                accountEnergyKDto.getType(), accountEnergyKDto.getQuantity(),
                 accountEnergyKDto.getRecoveryDate()
         );
     }

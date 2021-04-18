@@ -1,5 +1,6 @@
 package io.cryptobrewmaster.ms.be.api.gateway.kafka.account.balance;
 
+import io.cryptobrewmaster.ms.be.library.constants.EntityStatus;
 import io.cryptobrewmaster.ms.be.library.kafka.dto.account.balance.AccountBalanceKDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class AccountBalanceKafkaConsumer {
             clientIdPrefix = "${kafka.config.client-id}-${kafka.topic.account-balance-output}-${server.port}",
             containerFactory = "accountBalanceConcurrentKafkaListenerContainerFactory"
     )
-    public void consumeAndSave(ConsumerRecord<String, AccountBalanceKDto> consumerRecord) {
+    public void consumeAndOutput(ConsumerRecord<String, AccountBalanceKDto> consumerRecord) {
         log.debug("Consumed message for output account balance: Consumer record = {}", consumerRecord);
 
         AccountBalanceKDto accountBalanceKDto = consumerRecord.value();
