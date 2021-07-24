@@ -2,14 +2,10 @@ package io.cryptobrewmaster.ms.be.api.gateway.configuration.rest;
 
 import io.cryptobrewmaster.ms.be.api.gateway.communication.account.properties.AccountProperties;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.properties.AuthenticationProperties;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.core.properties.CoreProperties;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.state.properties.StateProperties;
 import io.cryptobrewmaster.ms.be.api.gateway.configuration.rest.properties.RestTemplateProperties;
 import io.cryptobrewmaster.ms.be.library.configuration.rest.interceptor.JsonContentTypeRestTemplateInterceptor;
-import io.cryptobrewmaster.ms.be.library.exception.integration.AccountErrorHandler;
-import io.cryptobrewmaster.ms.be.library.exception.integration.AuthenticationErrorHandler;
-import io.cryptobrewmaster.ms.be.library.exception.integration.CoreErrorHandler;
-import io.cryptobrewmaster.ms.be.library.exception.integration.StateErrorHandler;
+import io.cryptobrewmaster.ms.be.library.constants.MicroServiceName;
+import io.cryptobrewmaster.ms.be.library.exception.integration.CommunicationErrorHandler;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -57,7 +53,7 @@ public class RestTemplateConfiguration {
 
     @Bean(name = "authenticationRestTemplate")
     public RestTemplate authenticationRestTemplate(RestTemplateBuilder restTemplateBuilder, AuthenticationProperties authenticationProperties) {
-        return restTemplateBuilder.errorHandler(new AuthenticationErrorHandler())
+        return restTemplateBuilder.errorHandler(new CommunicationErrorHandler(MicroServiceName.BE_AUTHENTICATION))
                 .rootUri(authenticationProperties.getUri())
                 .interceptors(new JsonContentTypeRestTemplateInterceptor())
                 .setConnectTimeout(Duration.ofMillis(authenticationProperties.getTimeout().getConnect()))
@@ -67,31 +63,11 @@ public class RestTemplateConfiguration {
 
     @Bean(name = "accountRestTemplate")
     public RestTemplate accountRestTemplate(RestTemplateBuilder restTemplateBuilder, AccountProperties accountProperties) {
-        return restTemplateBuilder.errorHandler(new AccountErrorHandler())
+        return restTemplateBuilder.errorHandler(new CommunicationErrorHandler(MicroServiceName.BE_ACCOUNT))
                 .rootUri(accountProperties.getUri())
                 .interceptors(new JsonContentTypeRestTemplateInterceptor())
                 .setConnectTimeout(Duration.ofMillis(accountProperties.getTimeout().getConnect()))
                 .setReadTimeout(Duration.ofMillis(accountProperties.getTimeout().getRead()))
-                .build();
-    }
-
-    @Bean(name = "coreRestTemplate")
-    public RestTemplate coreRestTemplate(RestTemplateBuilder restTemplateBuilder, CoreProperties coreProperties) {
-        return restTemplateBuilder.errorHandler(new CoreErrorHandler())
-                .rootUri(coreProperties.getUri())
-                .interceptors(new JsonContentTypeRestTemplateInterceptor())
-                .setConnectTimeout(Duration.ofMillis(coreProperties.getTimeout().getConnect()))
-                .setReadTimeout(Duration.ofMillis(coreProperties.getTimeout().getRead()))
-                .build();
-    }
-
-    @Bean(name = "stateRestTemplate")
-    public RestTemplate stateRestTemplate(RestTemplateBuilder restTemplateBuilder, StateProperties stateProperties) {
-        return restTemplateBuilder.errorHandler(new StateErrorHandler())
-                .rootUri(stateProperties.getUri())
-                .interceptors(new JsonContentTypeRestTemplateInterceptor())
-                .setConnectTimeout(Duration.ofMillis(stateProperties.getTimeout().getConnect()))
-                .setReadTimeout(Duration.ofMillis(stateProperties.getTimeout().getRead()))
                 .build();
     }
 

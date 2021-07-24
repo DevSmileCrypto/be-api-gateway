@@ -3,7 +3,7 @@ package io.cryptobrewmaster.ms.be.api.gateway.kafka.account.energy;
 import io.cryptobrewmaster.ms.be.api.gateway.web.model.account.energy.AccountEnergyDto;
 import io.cryptobrewmaster.ms.be.library.constants.EntityStatus;
 import io.cryptobrewmaster.ms.be.library.dto.EntityState;
-import io.cryptobrewmaster.ms.be.library.kafka.dto.account.energy.AccountEnergyKDto;
+import io.cryptobrewmaster.ms.be.library.kafka.dto.account.energy.KafkaAccountEnergy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.header.Header;
@@ -18,16 +18,16 @@ public class AccountEnergyKafkaReceiver {
 
     private final SimpMessagingTemplate messagingTemplate;
 
-    public void output(AccountEnergyKDto accountEnergyKDto, Headers headers) {
-        Header header = headers.lastHeader(EntityStatus.KAFKA_HEADER);
+    public void output(KafkaAccountEnergy kafkaAccountEnergy, Headers headers) {
+        var header = headers.lastHeader(EntityStatus.KAFKA_HEADER);
 
         var state = new EntityState<>(
                 EntityStatus.valueOf(header.value()),
-                AccountEnergyDto.of(accountEnergyKDto)
+                AccountEnergyDto.of(kafkaAccountEnergy)
         );
 
         messagingTemplate.convertAndSendToUser(
-                accountEnergyKDto.getAccountId(), "/topic/energy",
+                kafkaAccountEnergy.getAccountId(), "/topic/energy",
                 state
         );
     }

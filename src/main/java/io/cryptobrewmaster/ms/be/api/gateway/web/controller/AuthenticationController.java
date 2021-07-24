@@ -34,7 +34,7 @@ public class AuthenticationController {
     @PostMapping("/login/keychain" )
     public AuthenticationTokenPairDto registrationOrLoginByKeychain(@Valid @NotNull @RequestBody RegistrationOrLoginDto registrationOrLoginDto) {
         log.info("Request to registration or login account by keychain received. {}", registrationOrLoginDto);
-        AuthenticationTokenPairDto authenticationTokenPairDto = authenticationCommunicationService.loginHiveKeychain(registrationOrLoginDto);
+        var authenticationTokenPairDto = authenticationCommunicationService.loginHiveKeychain(registrationOrLoginDto);
         log.info("Response on registration or login account by keychain. {}", authenticationTokenPairDto);
         return authenticationTokenPairDto;
     }
@@ -58,7 +58,7 @@ public class AuthenticationController {
     @PutMapping("/refresh/{refreshToken}" )
     public AuthenticationTokenPairDto refresh(@Valid @NotBlank @PathVariable String refreshToken) {
         log.info("Request to refresh account token pair received. Refresh token = {}", refreshToken);
-        AuthenticationTokenPairDto authenticationTokenPairDto = authenticationCommunicationService.refreshTokenPair(refreshToken);
+        var authenticationTokenPairDto = authenticationCommunicationService.refreshTokenPair(refreshToken);
         log.info("Response on refresh account token pair. {}", authenticationTokenPairDto);
         return authenticationTokenPairDto;
     }

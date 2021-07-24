@@ -6,6 +6,7 @@ import io.cryptobrewmaster.ms.be.api.gateway.web.model.authentication.Authentica
 import io.cryptobrewmaster.ms.be.api.gateway.web.model.authentication.RegistrationOrLoginDto;
 import io.cryptobrewmaster.ms.be.library.communication.BaseCommunicationService;
 import io.cryptobrewmaster.ms.be.library.communication.model.RequestLog;
+import io.cryptobrewmaster.ms.be.library.constants.GatewayType;
 import io.cryptobrewmaster.ms.be.library.constants.MicroServiceName;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -30,10 +31,14 @@ public class AuthenticationCommunicationServiceImpl extends BaseCommunicationSer
         return MicroServiceName.BE_AUTHENTICATION.getProviderName();
     }
 
+    GatewayType getGatewayType() {
+        return GatewayType.API;
+    }
+
     @Override
     public AuthenticationTokenPairDto loginHiveKeychain(RegistrationOrLoginDto registrationOrLoginDto) {
         return performRequestWithResponse(
-                authenticationUriService.getHiveKeychainLoginUri(),
+                authenticationUriService.getHiveKeychainLoginUri(getGatewayType()),
                 HttpMethod.POST, registrationOrLoginDto,
                 AuthenticationTokenPairDto.class,
                 new RequestLog(
@@ -51,7 +56,7 @@ public class AuthenticationCommunicationServiceImpl extends BaseCommunicationSer
     public String loginHiveSigner() {
         var logArgs = List.<Object>of(getMicroServiceName());
         return performRequestWithResponse(
-                authenticationUriService.getHiveSignerLoginUri(),
+                authenticationUriService.getHiveSignerLoginUri(getGatewayType()),
                 HttpMethod.GET,
                 String.class,
                 new RequestLog(
@@ -66,7 +71,7 @@ public class AuthenticationCommunicationServiceImpl extends BaseCommunicationSer
     public String redirectHiveSignerLogin(MultiValueMap<String, String> queryParams) {
         var logArgs = List.<Object>of(getMicroServiceName());
         return performRequestWithResponse(
-                authenticationUriService.getHiveSignerLoginRedirectUri(queryParams),
+                authenticationUriService.getHiveSignerLoginRedirectUri(queryParams, getGatewayType()),
                 HttpMethod.GET,
                 String.class,
                 new RequestLog(
@@ -80,7 +85,7 @@ public class AuthenticationCommunicationServiceImpl extends BaseCommunicationSer
     @Override
     public AuthenticationTokenPairDto refreshTokenPair(String refreshToken) {
         return performRequestWithResponse(
-                authenticationUriService.getRefreshTokenPairUri(refreshToken),
+                authenticationUriService.getRefreshTokenPairUri(refreshToken, getGatewayType()),
                 HttpMethod.PUT,
                 AuthenticationTokenPairDto.class,
                 new RequestLog(
@@ -97,7 +102,7 @@ public class AuthenticationCommunicationServiceImpl extends BaseCommunicationSer
     @Override
     public AccountAuthenticationDto validateAccessToken(String accessToken) {
         return performRequestWithResponse(
-                authenticationUriService.getAccessTokenValidateUri(accessToken),
+                authenticationUriService.getAccessTokenValidateUri(accessToken, getGatewayType()),
                 HttpMethod.GET,
                 AccountAuthenticationDto.class,
                 new RequestLog(
@@ -114,7 +119,7 @@ public class AuthenticationCommunicationServiceImpl extends BaseCommunicationSer
     @Override
     public void logout(String accountId) {
         performRequestWithoutResponse(
-                authenticationUriService.getLogoutUri(accountId),
+                authenticationUriService.getLogoutUri(accountId, getGatewayType()),
                 HttpMethod.PUT,
                 new RequestLog(
                         "Request to logout by account id send to %s ms. Account id = %s",
@@ -123,20 +128,6 @@ public class AuthenticationCommunicationServiceImpl extends BaseCommunicationSer
                         List.of(getMicroServiceName()),
                         "No response from %s ms on logout by account id request. Account id = %s.",
                         List.of(getMicroServiceName(), accountId)
-                )
-        );
-    }
-
-    @Override
-    public void refreshServerProperties() {
-        var logArgs = List.<Object>of(getMicroServiceName());
-        performRequestWithoutResponse(
-                authenticationUriService.getRefreshServerPropertiesUri(),
-                HttpMethod.POST,
-                new RequestLog(
-                        "Request to refresh server properties send to %s ms.", logArgs,
-                        "Response on refresh server properties from %s ms.", logArgs,
-                        "No response from %s ms on refresh server properties request.", logArgs
                 )
         );
     }

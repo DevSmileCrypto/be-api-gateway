@@ -2,7 +2,7 @@ package io.cryptobrewmaster.ms.be.api.gateway.web.model.account.balance;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.cryptobrewmaster.ms.be.library.constants.Currency;
-import io.cryptobrewmaster.ms.be.library.kafka.dto.account.balance.AccountBalanceKDto;
+import io.cryptobrewmaster.ms.be.library.kafka.dto.account.balance.KafkaAccountBalance;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +19,7 @@ public class AccountBalanceDto {
     @NotBlank
     private Double quantity;
 
-    public static AccountBalanceDto of(AccountBalanceKDto accountBalanceKDto) {
-        return new AccountBalanceDto(accountBalanceKDto.getCurrency(), accountBalanceKDto.getQuantity().doubleValue());
+    public static AccountBalanceDto of(KafkaAccountBalance kafkaAccountBalance) {
+        return new AccountBalanceDto(kafkaAccountBalance.getCurrency(), kafkaAccountBalance.getQuantity().doubleValue());
     }
 }

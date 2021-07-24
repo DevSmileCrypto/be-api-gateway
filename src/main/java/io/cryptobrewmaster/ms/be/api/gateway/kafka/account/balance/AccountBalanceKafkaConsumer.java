@@ -1,7 +1,7 @@
 package io.cryptobrewmaster.ms.be.api.gateway.kafka.account.balance;
 
 import io.cryptobrewmaster.ms.be.library.constants.EntityStatus;
-import io.cryptobrewmaster.ms.be.library.kafka.dto.account.balance.AccountBalanceKDto;
+import io.cryptobrewmaster.ms.be.library.kafka.dto.account.balance.KafkaAccountBalance;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -21,15 +21,15 @@ public class AccountBalanceKafkaConsumer {
             clientIdPrefix = "${kafka.config.client-id}-${kafka.topic.account-balance-output}-${server.port}",
             containerFactory = "accountBalanceConcurrentKafkaListenerContainerFactory"
     )
-    public void consumeAndOutput(ConsumerRecord<String, AccountBalanceKDto> consumerRecord) {
+    public void consumeAndOutput(ConsumerRecord<String, KafkaAccountBalance> consumerRecord) {
         log.debug("Consumed message for output account balance: Consumer record = {}", consumerRecord);
 
-        AccountBalanceKDto accountBalanceKDto = consumerRecord.value();
-        var accountBalanceLogInfo = accountBalanceKDto.toString();
+        var kafkaAccountBalance = consumerRecord.value();
+        var accountBalanceLogInfo = kafkaAccountBalance.toString();
 
         try {
             log.info("Consumed message for output account balance: {}", accountBalanceLogInfo);
-            accountBalanceKafkaReceiver.output(accountBalanceKDto, consumerRecord.headers());
+            accountBalanceKafkaReceiver.output(kafkaAccountBalance, consumerRecord.headers());
             log.info("Processed message for output account balance: {}", accountBalanceLogInfo);
         } catch (Exception e) {
             log.error("Error while on consumed for output account balance: {}. Error = {}",

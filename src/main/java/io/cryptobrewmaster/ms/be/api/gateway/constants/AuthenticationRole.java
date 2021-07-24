@@ -4,7 +4,7 @@ import io.cryptobrewmaster.ms.be.library.constants.Role;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum AuthenticationRole implements GrantedAuthority {
-    USER, ADMIN;
+    USER, ADMIN, SUPER_ADMIN;
 
     public static AuthenticationRole of(Role role) {
         return AuthenticationRole.valueOf(role.name());

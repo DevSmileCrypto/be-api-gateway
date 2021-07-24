@@ -1,10 +1,10 @@
 package io.cryptobrewmaster.ms.be.api.gateway.configuration.kafka;
 
 import io.cryptobrewmaster.ms.be.api.gateway.configuration.kafka.properties.KafkaProperties;
-import io.cryptobrewmaster.ms.be.library.kafka.dto.account.balance.AccountBalanceKDto;
-import io.cryptobrewmaster.ms.be.library.kafka.dto.account.energy.AccountEnergyKDto;
-import io.cryptobrewmaster.ms.be.library.kafka.serde.account.balance.AccountBalanceKDtoSerde;
-import io.cryptobrewmaster.ms.be.library.kafka.serde.account.energy.AccountEnergyKDtoSerde;
+import io.cryptobrewmaster.ms.be.library.kafka.dto.account.balance.KafkaAccountBalance;
+import io.cryptobrewmaster.ms.be.library.kafka.dto.account.energy.KafkaAccountEnergy;
+import io.cryptobrewmaster.ms.be.library.kafka.serde.account.balance.KafkaAccountBalanceSerde;
+import io.cryptobrewmaster.ms.be.library.kafka.serde.account.energy.KafkaAccountEnergySerde;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -48,13 +48,13 @@ public class KafkaConsumerConfiguration {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, AccountBalanceKDto> accountBalanceConcurrentKafkaListenerContainerFactory() {
-        return getKafkaListenerContainerFactory(AccountBalanceKDtoSerde.class);
+    public ConcurrentKafkaListenerContainerFactory<String, KafkaAccountBalance> accountBalanceConcurrentKafkaListenerContainerFactory() {
+        return getKafkaListenerContainerFactory(KafkaAccountBalanceSerde.class);
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, AccountEnergyKDto> accountEnergyConcurrentKafkaListenerContainerFactory() {
-        return getKafkaListenerContainerFactory(AccountEnergyKDtoSerde.class);
+    public ConcurrentKafkaListenerContainerFactory<String, KafkaAccountEnergy> accountEnergyConcurrentKafkaListenerContainerFactory() {
+        return getKafkaListenerContainerFactory(KafkaAccountEnergySerde.class);
     }
 
 }

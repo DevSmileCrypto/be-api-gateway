@@ -56,9 +56,4 @@ public interface AuthenticationCommunicationService {
      */
     void logout(String accountId);
 
-    /**
-     * Refresh properties.
-     */
-    void refreshServerProperties();
-
 }

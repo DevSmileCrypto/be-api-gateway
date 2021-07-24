@@ -3,7 +3,7 @@ package io.cryptobrewmaster.ms.be.api.gateway.kafka.account.balance;
 import io.cryptobrewmaster.ms.be.api.gateway.web.model.account.balance.AccountBalanceDto;
 import io.cryptobrewmaster.ms.be.library.constants.EntityStatus;
 import io.cryptobrewmaster.ms.be.library.dto.EntityState;
-import io.cryptobrewmaster.ms.be.library.kafka.dto.account.balance.AccountBalanceKDto;
+import io.cryptobrewmaster.ms.be.library.kafka.dto.account.balance.KafkaAccountBalance;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.header.Header;
@@ -18,16 +18,16 @@ public class AccountBalanceKafkaReceiver {
 
     private final SimpMessagingTemplate messagingTemplate;
 
-    public void output(AccountBalanceKDto accountBalanceKDto, Headers headers) {
-        Header header = headers.lastHeader(EntityStatus.KAFKA_HEADER);
+    public void output(KafkaAccountBalance kafkaAccountBalance, Headers headers) {
+        var header = headers.lastHeader(EntityStatus.KAFKA_HEADER);
 
         var state = new EntityState<>(
                 EntityStatus.valueOf(header.value()),
-                AccountBalanceDto.of(accountBalanceKDto)
+                AccountBalanceDto.of(kafkaAccountBalance)
         );
 
         messagingTemplate.convertAndSendToUser(
-                accountBalanceKDto.getAccountId(), "/topic/balance",
+                kafkaAccountBalance.getAccountId(), "/topic/balance",
                 state
         );
     }

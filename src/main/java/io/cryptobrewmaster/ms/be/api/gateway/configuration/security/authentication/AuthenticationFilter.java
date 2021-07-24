@@ -36,11 +36,11 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String token = resolveToken(request);
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            var authentication = SecurityContextHolder.getContext().getAuthentication();
             if (Objects.isNull(authentication) && StringUtils.isNotBlank(token)) {
-                AccountAuthenticationDto accountAuthenticationDto = authenticationCommunicationService.validateAccessToken(token);
+                var accountAuthenticationDto = authenticationCommunicationService.validateAccessToken(token);
                 if (accountAuthenticationDto.isValid()) {
-                    AccountAuthentication accountAuthentication = new AccountAuthentication(accountAuthenticationDto);
+                    var accountAuthentication = new AccountAuthentication(accountAuthenticationDto);
                     SecurityContextHolder.getContext().setAuthentication(accountAuthentication);
                 }
             }
