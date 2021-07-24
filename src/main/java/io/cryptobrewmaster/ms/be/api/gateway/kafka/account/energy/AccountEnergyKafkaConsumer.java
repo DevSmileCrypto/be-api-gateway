@@ -15,23 +15,23 @@ public class AccountEnergyKafkaConsumer {
     private final AccountEnergyKafkaReceiver accountEnergyKafkaReceiver;
 
     @KafkaListener(
-            topics = "${kafka.topic.account-energy-output}",
+            topics = "${kafka.topic.account-energy-outcome}",
             groupId = "${kafka.config.group-id}",
-            clientIdPrefix = "${kafka.config.client-id}-${kafka.topic.account-energy-output}-${server.port}",
+            clientIdPrefix = "${kafka.config.client-id}-${kafka.topic.account-energy-outcome}-${server.port}",
             containerFactory = "accountEnergyConcurrentKafkaListenerContainerFactory"
     )
     public void consumeAndSave(ConsumerRecord<String, KafkaAccountEnergy> consumerRecord) {
-        log.debug("Consumed message for output account energy: Consumer record = {}", consumerRecord);
+        log.debug("Consumed message for outcome account energy: Consumer record = {}", consumerRecord);
 
         var kafkaAccountEnergy = consumerRecord.value();
         var accountEnergyLogInfo = kafkaAccountEnergy.toString();
 
         try {
-            log.info("Consumed message for output account energy: {}", accountEnergyLogInfo);
-            accountEnergyKafkaReceiver.output(kafkaAccountEnergy, consumerRecord.headers());
-            log.info("Processed message for output account energy: {}", accountEnergyLogInfo);
+            log.info("Consumed message for outcome account energy: {}", accountEnergyLogInfo);
+            accountEnergyKafkaReceiver.outcome(kafkaAccountEnergy, consumerRecord.headers());
+            log.info("Processed message for outcome account energy: {}", accountEnergyLogInfo);
         } catch (Exception e) {
-            log.error("Error while on consumed for output account energy: {}. Error = {}",
+            log.error("Error while on consumed for outcome account energy: {}. Error = {}",
                     accountEnergyLogInfo, e.getMessage());
         }
     }

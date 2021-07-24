@@ -18,7 +18,7 @@ public class AccountEnergyKafkaReceiver {
 
     private final SimpMessagingTemplate messagingTemplate;
 
-    public void output(KafkaAccountEnergy kafkaAccountEnergy, Headers headers) {
+    public void outcome(KafkaAccountEnergy kafkaAccountEnergy, Headers headers) {
         var header = headers.lastHeader(EntityStatus.KAFKA_HEADER);
 
         var state = new EntityState<>(

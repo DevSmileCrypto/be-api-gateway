@@ -18,7 +18,7 @@ public class AccountBalanceKafkaReceiver {
 
     private final SimpMessagingTemplate messagingTemplate;
 
-    public void output(KafkaAccountBalance kafkaAccountBalance, Headers headers) {
+    public void outcome(KafkaAccountBalance kafkaAccountBalance, Headers headers) {
         var header = headers.lastHeader(EntityStatus.KAFKA_HEADER);
 
         var state = new EntityState<>(

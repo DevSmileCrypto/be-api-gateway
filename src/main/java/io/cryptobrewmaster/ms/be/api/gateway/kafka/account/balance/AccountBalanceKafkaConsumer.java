@@ -16,23 +16,23 @@ public class AccountBalanceKafkaConsumer {
     private final AccountBalanceKafkaReceiver accountBalanceKafkaReceiver;
 
     @KafkaListener(
-            topics = "${kafka.topic.account-balance-output}",
+            topics = "${kafka.topic.account-balance-outcome}",
             groupId = "${kafka.config.group-id}",
-            clientIdPrefix = "${kafka.config.client-id}-${kafka.topic.account-balance-output}-${server.port}",
+            clientIdPrefix = "${kafka.config.client-id}-${kafka.topic.account-balance-outcome}-${server.port}",
             containerFactory = "accountBalanceConcurrentKafkaListenerContainerFactory"
     )
     public void consumeAndOutput(ConsumerRecord<String, KafkaAccountBalance> consumerRecord) {
-        log.debug("Consumed message for output account balance: Consumer record = {}", consumerRecord);
+        log.debug("Consumed message for outcome account balance: Consumer record = {}", consumerRecord);
 
         var kafkaAccountBalance = consumerRecord.value();
         var accountBalanceLogInfo = kafkaAccountBalance.toString();
 
         try {
-            log.info("Consumed message for output account balance: {}", accountBalanceLogInfo);
-            accountBalanceKafkaReceiver.output(kafkaAccountBalance, consumerRecord.headers());
-            log.info("Processed message for output account balance: {}", accountBalanceLogInfo);
+            log.info("Consumed message for outcome account balance: {}", accountBalanceLogInfo);
+            accountBalanceKafkaReceiver.outcome(kafkaAccountBalance, consumerRecord.headers());
+            log.info("Processed message for outcome account balance: {}", accountBalanceLogInfo);
         } catch (Exception e) {
-            log.error("Error while on consumed for output account balance: {}. Error = {}",
+            log.error("Error while on consumed for outcome account balance: {}. Error = {}",
                     accountBalanceLogInfo, e.getMessage());
         }
     }
