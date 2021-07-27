@@ -5,7 +5,6 @@ import io.cryptobrewmaster.ms.be.library.constants.GatewayType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;

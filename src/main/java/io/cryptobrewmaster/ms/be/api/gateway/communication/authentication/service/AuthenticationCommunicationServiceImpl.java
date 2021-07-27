@@ -1,9 +1,9 @@
 package io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.service;
 
 import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.dto.AccountAuthenticationDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.dto.AuthenticationTokenPairDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.dto.RegistrationOrLoginDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.uri.AuthenticationUriService;
-import io.cryptobrewmaster.ms.be.api.gateway.web.model.authentication.AuthenticationTokenPairDto;
-import io.cryptobrewmaster.ms.be.api.gateway.web.model.authentication.RegistrationOrLoginDto;
 import io.cryptobrewmaster.ms.be.library.communication.BaseCommunicationService;
 import io.cryptobrewmaster.ms.be.library.communication.model.RequestLog;
 import io.cryptobrewmaster.ms.be.library.constants.GatewayType;

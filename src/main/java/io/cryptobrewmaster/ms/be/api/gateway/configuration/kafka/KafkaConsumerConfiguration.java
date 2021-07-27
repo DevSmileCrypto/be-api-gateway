@@ -2,8 +2,12 @@ package io.cryptobrewmaster.ms.be.api.gateway.configuration.kafka;
 
 import io.cryptobrewmaster.ms.be.api.gateway.configuration.kafka.properties.KafkaProperties;
 import io.cryptobrewmaster.ms.be.library.kafka.dto.account.balance.KafkaAccountBalance;
+import io.cryptobrewmaster.ms.be.library.kafka.dto.account.card.beer.KafkaAccountBeerCard;
+import io.cryptobrewmaster.ms.be.library.kafka.dto.account.card.resource.KafkaAccountResourceCard;
 import io.cryptobrewmaster.ms.be.library.kafka.dto.account.energy.KafkaAccountEnergy;
 import io.cryptobrewmaster.ms.be.library.kafka.serde.account.balance.KafkaAccountBalanceSerde;
+import io.cryptobrewmaster.ms.be.library.kafka.serde.account.card.beer.KafkaAccountBeerCardSerde;
+import io.cryptobrewmaster.ms.be.library.kafka.serde.account.card.resource.KafkaAccountResourceCardSerde;
 import io.cryptobrewmaster.ms.be.library.kafka.serde.account.energy.KafkaAccountEnergySerde;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -55,6 +59,16 @@ public class KafkaConsumerConfiguration {
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, KafkaAccountEnergy> accountEnergyConcurrentKafkaListenerContainerFactory() {
         return getKafkaListenerContainerFactory(KafkaAccountEnergySerde.class);
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, KafkaAccountResourceCard> accountResourceCardConcurrentKafkaListenerContainerFactory() {
+        return getKafkaListenerContainerFactory(KafkaAccountResourceCardSerde.class);
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, KafkaAccountBeerCard> accountBeerCardConcurrentKafkaListenerContainerFactory() {
+        return getKafkaListenerContainerFactory(KafkaAccountBeerCardSerde.class);
     }
 
 }

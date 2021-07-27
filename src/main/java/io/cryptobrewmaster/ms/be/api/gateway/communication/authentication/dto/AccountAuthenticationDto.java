@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
@@ -23,7 +24,7 @@ public class AccountAuthenticationDto {
     @NotBlank
     private String accountId;
     @NotNull @NotEmpty
-    private List<Role> roles;
+    private Set<Role> roles;
 
     public List<AuthenticationRole> getAuthenticationRoles() {
         return roles.stream()
