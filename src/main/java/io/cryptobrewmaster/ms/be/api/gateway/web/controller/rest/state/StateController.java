@@ -1,4 +1,4 @@
-package io.cryptobrewmaster.ms.be.api.gateway.web.controller.state;
+package io.cryptobrewmaster.ms.be.api.gateway.web.controller.rest.state;
 
 import io.cryptobrewmaster.ms.be.api.gateway.configuration.web.security.model.AccountAuthentication;
 import io.cryptobrewmaster.ms.be.api.gateway.service.state.StateService;

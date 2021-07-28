@@ -26,5 +26,7 @@ public class KafkaProperties {
     @Getter
     @Setter
     public static class Topic {
+        private String buildingStateDetermine;
+        private String buildingCraftChancesDetermine;
     }
 }

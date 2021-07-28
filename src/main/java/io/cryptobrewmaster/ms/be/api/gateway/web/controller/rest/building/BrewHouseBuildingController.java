@@ -1,4 +1,4 @@
-package io.cryptobrewmaster.ms.be.api.gateway.web.controller.building;
+package io.cryptobrewmaster.ms.be.api.gateway.web.controller.rest.building;
 
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.house.brew.craft.history.BrewHouseBuildingCraftHistoryUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.request.BuildingCraftStartedRequestDto;

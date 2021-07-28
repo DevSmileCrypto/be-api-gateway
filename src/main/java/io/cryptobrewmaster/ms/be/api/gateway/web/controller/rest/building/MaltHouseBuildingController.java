@@ -1,6 +1,6 @@
-package io.cryptobrewmaster.ms.be.api.gateway.web.controller.building;
+package io.cryptobrewmaster.ms.be.api.gateway.web.controller.rest.building;
 
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.academy.lab.yeast.craft.history.AcademyYeastLabBuildingCraftHistoryUiDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.house.malt.craft.history.MaltHouseBuildingCraftHistoryUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.request.BuildingCraftStartedRequestDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.request.BuildingRentedRequestDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.response.BuildingCraftStartedResponseDto;
@@ -25,48 +25,48 @@ import javax.validation.constraints.NotNull;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/building/academy/lab/yeast")
+@RequestMapping("/api/building/house/malt")
 @RestController
-public class AcademyYeastLabBuildingController {
+public class MaltHouseBuildingController {
 
     private final ProductionBuildingCommunicationService productionBuildingCommunicationService;
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/craft/history/ui")
-    public PageDto<AcademyYeastLabBuildingCraftHistoryUiDto> getAllCraftHistory(@RequestParam(required = false) Integer page,
-                                                                                @RequestParam(required = false) Integer size) {
+    public PageDto<MaltHouseBuildingCraftHistoryUiDto> getAllCraftHistory(@RequestParam(required = false) Integer page,
+                                                                          @RequestParam(required = false) Integer size) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
-        log.info("Request to get all academy yeast lab building craft history for ui received: Account id = {}", accountId);
-        var academyYeastLabBuildingCraftHistoryUiDtoPageDto = productionBuildingCommunicationService.getAllAcademyYeastLabBuildingCraftHistoryForUi(accountId, page, size);
-        log.info("Response on get all academy yeast lab building craft history for ui: Account id = {}, {}", accountId, academyYeastLabBuildingCraftHistoryUiDtoPageDto);
-        return academyYeastLabBuildingCraftHistoryUiDtoPageDto;
+        log.info("Request to get all malt house building craft history for ui received: Account id = {}", accountId);
+        var maltFieldBuildingCraftHistoryUiDtoPageDto = productionBuildingCommunicationService.getAllMaltHouseBuildingCraftHistoryForUi(accountId, page, size);
+        log.info("Response on get all malt house building craft history for ui: Account id = {}, {}", accountId, maltFieldBuildingCraftHistoryUiDtoPageDto);
+        return maltFieldBuildingCraftHistoryUiDtoPageDto;
     }
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/rent")
     public void rent(@Valid @NotNull @RequestBody BuildingRentedRequestDto buildingRentedRequestDto) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
-        log.info("Request to rent academy yeast lab building: {}", buildingRentedRequestDto);
-        productionBuildingCommunicationService.rentAcademyYeastLabBuilding(accountId, buildingRentedRequestDto);
-        log.info("Response on rent academy yeast lab building: {}", buildingRentedRequestDto);
+        log.info("Request to rent malt house building: {}", buildingRentedRequestDto);
+        productionBuildingCommunicationService.rentMaltHouseBuilding(accountId, buildingRentedRequestDto);
+        log.info("Response on rent malt house building: {}", buildingRentedRequestDto);
     }
 
     @PreAuthorize("hasRole('USER')")
     @PutMapping("/{buildingId}/restore/condition")
     public void restoreCondition(@Valid @NotNull @PathVariable Long buildingId) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
-        log.info("Request to restore condition in academy yeast lab building: Building id = {}, account id = {}", buildingId, accountId);
-        productionBuildingCommunicationService.restoreConditionAcademyYeastLabBuilding(accountId, buildingId);
-        log.info("Response on restore condition in academy yeast lab building: Building id = {}, account id = {}", buildingId, accountId);
+        log.info("Request to restore condition in malt house building: Building id = {}, account id = {}", buildingId, accountId);
+        productionBuildingCommunicationService.restoreConditionMaltHouseBuilding(accountId, buildingId);
+        log.info("Response on restore condition in malt house building: Building id = {}, account id = {}", buildingId, accountId);
     }
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/craft")
     public BuildingCraftStartedResponseDto craft(@Valid @NotNull @RequestBody BuildingCraftStartedRequestDto buildingCraftStartedRequestDto) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
-        log.info("Request to start craft in academy yeast lab building: {}", buildingCraftStartedRequestDto);
-        var buildingCraftStartedResponseDto = productionBuildingCommunicationService.craftAcademyYeastLabBuilding(accountId, buildingCraftStartedRequestDto);
-        log.info("Response on start craft in academy yeast lab building: {}", buildingCraftStartedResponseDto);
+        log.info("Request to start craft in malt house building: {}", buildingCraftStartedRequestDto);
+        var buildingCraftStartedResponseDto = productionBuildingCommunicationService.craftMaltHouseBuilding(accountId, buildingCraftStartedRequestDto);
+        log.info("Response on start craft in malt house building: {}", buildingCraftStartedResponseDto);
         return buildingCraftStartedResponseDto;
     }
 
@@ -74,18 +74,18 @@ public class AcademyYeastLabBuildingController {
     @PutMapping("/craft/{buildingCraftId}/claim")
     public void claimCraft(@Valid @NotNull @PathVariable Long buildingCraftId) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
-        log.info("Request to claim craft in academy yeast lab building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
-        productionBuildingCommunicationService.claimCraftAcademyYeastLabBuilding(accountId, buildingCraftId);
-        log.info("Response on claim craft in academy yeast lab building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
+        log.info("Request to claim craft in malt house building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
+        productionBuildingCommunicationService.claimCraftMaltHouseBuilding(accountId, buildingCraftId);
+        log.info("Response on claim craft in malt house building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
     }
 
     @PreAuthorize("hasRole('USER')")
     @PutMapping("/craft/{buildingCraftId}/completion")
     public void completionCraft(@Valid @NotNull @PathVariable Long buildingCraftId) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
-        log.info("Request to completion craft in academy yeast lab building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
-        productionBuildingCommunicationService.completionCraftAcademyYeastLabBuilding(accountId, buildingCraftId);
-        log.info("Response on completion craft in academy yeast lab building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
+        log.info("Request to completion craft in malt house building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
+        productionBuildingCommunicationService.completionCraftMaltHouseBuilding(accountId, buildingCraftId);
+        log.info("Response on completion craft in malt house building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
     }
 
 }

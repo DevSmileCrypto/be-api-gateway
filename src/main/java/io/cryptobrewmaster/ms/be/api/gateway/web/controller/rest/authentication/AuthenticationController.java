@@ -1,4 +1,4 @@
-package io.cryptobrewmaster.ms.be.api.gateway.web.controller.authentication;
+package io.cryptobrewmaster.ms.be.api.gateway.web.controller.rest.authentication;
 
 import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.dto.AuthenticationTokenPairDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.authentication.dto.RegistrationOrLoginDto;

@@ -1,9 +1,9 @@
-package io.cryptobrewmaster.ms.be.api.gateway.web.controller.building;
+package io.cryptobrewmaster.ms.be.api.gateway.web.controller.rest.building;
 
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.field.hops.craft.history.HopsFieldBuildingCraftHistoryUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.request.BuildingCraftStartedRequestDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.request.BuildingRentedRequestDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.response.BuildingCraftStartedResponseDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.water.pump.craft.history.WaterPumpBuildingCraftHistoryUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.service.ProductionBuildingCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.configuration.web.security.model.AccountAuthentication;
 import io.cryptobrewmaster.ms.be.library.dto.PageDto;
@@ -25,48 +25,48 @@ import javax.validation.constraints.NotNull;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/building/field/hops")
+@RequestMapping("/api/building/water-pump")
 @RestController
-public class HopsFieldBuildingController {
+public class WaterPumpBuildingController {
 
     private final ProductionBuildingCommunicationService productionBuildingCommunicationService;
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/craft/history/ui")
-    public PageDto<HopsFieldBuildingCraftHistoryUiDto> getAllCraftHistory(@RequestParam(required = false) Integer page,
-                                                                           @RequestParam(required = false) Integer size) {
+    public PageDto<WaterPumpBuildingCraftHistoryUiDto> getAllCraftHistory(@RequestParam(required = false) Integer page,
+                                                                          @RequestParam(required = false) Integer size) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
-        log.info("Request to get all hops field building craft history for ui received: Account id = {}", accountId);
-        var hopsFieldBuildingCraftHistoryUiDtoPageDto = productionBuildingCommunicationService.getAllHopsFieldBuildingCraftHistoryForUi(accountId, page, size);
-        log.info("Response on get all hops field building craft history for ui: Account id = {}, {}", accountId, hopsFieldBuildingCraftHistoryUiDtoPageDto);
-        return hopsFieldBuildingCraftHistoryUiDtoPageDto;
+        log.info("Request to get all water pump building craft history for ui received: Account id = {}", accountId);
+        var waterPumpBuildingCraftHistoryUiDtoPageDto = productionBuildingCommunicationService.getAllWaterPumpBuildingCraftHistoryForUi(accountId, page, size);
+        log.info("Response on get all water pump building craft history for ui: Account id = {}, {}", accountId, waterPumpBuildingCraftHistoryUiDtoPageDto);
+        return waterPumpBuildingCraftHistoryUiDtoPageDto;
     }
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/rent")
     public void rent(@Valid @NotNull @RequestBody BuildingRentedRequestDto buildingRentedRequestDto) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
-        log.info("Request to rent hops field building: {}", buildingRentedRequestDto);
-        productionBuildingCommunicationService.rentHopsFieldBuilding(accountId, buildingRentedRequestDto);
-        log.info("Response on rent hops field building: {}", buildingRentedRequestDto);
+        log.info("Request to rent water pump building: {}", buildingRentedRequestDto);
+        productionBuildingCommunicationService.rentWaterPumpBuilding(accountId, buildingRentedRequestDto);
+        log.info("Response on rent water pump building: {}", buildingRentedRequestDto);
     }
 
     @PreAuthorize("hasRole('USER')")
     @PutMapping("/{buildingId}/restore/condition")
     public void restoreCondition(@Valid @NotNull @PathVariable Long buildingId) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
-        log.info("Request to restore condition in hops field building: Building id = {}, account id = {}", buildingId, accountId);
-        productionBuildingCommunicationService.restoreConditionHopsFieldBuilding(accountId, buildingId);
-        log.info("Response on restore condition in hops field building: Building id = {}, account id = {}", buildingId, accountId);
+        log.info("Request to restore condition in water pump building: Building id = {}, account id = {}", buildingId, accountId);
+        productionBuildingCommunicationService.restoreConditionWaterPumpBuilding(accountId, buildingId);
+        log.info("Response on restore condition in water pump building: Building id = {}, account id = {}", buildingId, accountId);
     }
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/craft")
     public BuildingCraftStartedResponseDto craft(@Valid @NotNull @RequestBody BuildingCraftStartedRequestDto buildingCraftStartedRequestDto) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
-        log.info("Request to start craft in hops field building: {}", buildingCraftStartedRequestDto);
-        var buildingCraftStartedResponseDto = productionBuildingCommunicationService.craftHopsFieldBuilding(accountId, buildingCraftStartedRequestDto);
-        log.info("Response on start craft in hops field building: {}", buildingCraftStartedResponseDto);
+        log.info("Request to start craft in water pump building: {}", buildingCraftStartedRequestDto);
+        var buildingCraftStartedResponseDto = productionBuildingCommunicationService.craftWaterPumpBuilding(accountId, buildingCraftStartedRequestDto);
+        log.info("Response on start craft in water pump building: {}", buildingCraftStartedResponseDto);
         return buildingCraftStartedResponseDto;
     }
 
@@ -74,18 +74,18 @@ public class HopsFieldBuildingController {
     @PutMapping("/craft/{buildingCraftId}/claim")
     public void claimCraft(@Valid @NotNull @PathVariable Long buildingCraftId) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
-        log.info("Request to claim craft in hops field building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
-        productionBuildingCommunicationService.claimCraftHopsFieldBuilding(accountId, buildingCraftId);
-        log.info("Response on claim craft in hops field building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
+        log.info("Request to claim craft in water pump building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
+        productionBuildingCommunicationService.claimCraftWaterPumpBuilding(accountId, buildingCraftId);
+        log.info("Response on claim craft in water pump building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
     }
 
     @PreAuthorize("hasRole('USER')")
     @PutMapping("/craft/{buildingCraftId}/completion")
     public void completionCraft(@Valid @NotNull @PathVariable Long buildingCraftId) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
-        log.info("Request to completion craft in hops field building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
-        productionBuildingCommunicationService.completionCraftHopsFieldBuilding(accountId, buildingCraftId);
-        log.info("Response on completion craft in hops field building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
+        log.info("Request to completion craft in water pump building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
+        productionBuildingCommunicationService.completionCraftWaterPumpBuilding(accountId, buildingCraftId);
+        log.info("Response on completion craft in water pump building: Building craft id = {}, account id = {}", buildingCraftId, accountId);
     }
 
 }
