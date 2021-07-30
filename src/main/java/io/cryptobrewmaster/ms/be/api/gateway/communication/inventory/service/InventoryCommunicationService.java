@@ -1,10 +1,11 @@
 package io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.service;
 
 import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.beer.AccountBeerCardUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.beer.criteria.AccountBeerCardFetchedCriteriaDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.beer.criteria.AccountBeerCardUiFetchedCriteriaDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.resource.AccountResourceCardUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.resource.criteria.AccountResourceCardFetchedCriteriaDto;
-import io.cryptobrewmaster.ms.be.library.dto.PageDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.resource.criteria.AccountResourceCardUiFetchedCriteriaDto;
+
+import java.util.List;
 
 /**
  * The interface Inventory communication service.
@@ -12,19 +13,19 @@ import io.cryptobrewmaster.ms.be.library.dto.PageDto;
 public interface InventoryCommunicationService {
 
     /**
-     * Fetch all account resource card for ui page dto.
+     * Fetch all account resource card for ui list.
      *
      * @param criteriaDto the criteria dto
-     * @return the page dto
+     * @return the list
      */
-    PageDto<AccountResourceCardUiDto> fetchAllAccountResourceCardForUi(AccountResourceCardFetchedCriteriaDto criteriaDto);
+    List<AccountResourceCardUiDto> fetchAllAccountResourceCardForUi(AccountResourceCardUiFetchedCriteriaDto criteriaDto);
 
     /**
-     * Fetch all account beer card for ui page dto.
+     * Fetch all account beer card for ui list.
      *
      * @param criteriaDto the criteria dto
-     * @return the page dto
+     * @return the list
      */
-    PageDto<AccountBeerCardUiDto> fetchAllAccountBeerCardForUi(AccountBeerCardFetchedCriteriaDto criteriaDto);
+    List<AccountBeerCardUiDto> fetchAllAccountBeerCardForUi(AccountBeerCardUiFetchedCriteriaDto criteriaDto);
 
 }

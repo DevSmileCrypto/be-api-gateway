@@ -1,7 +1,7 @@
 package io.cryptobrewmaster.ms.be.api.gateway.kafka.account.card;
 
-import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.beer.AccountBeerCardUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.resource.AccountResourceCardUiDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.beer.AccountBeerCardDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.resource.AccountResourceCardDto;
 import io.cryptobrewmaster.ms.be.library.kafka.dto.account.card.beer.KafkaAccountBeerCard;
 import io.cryptobrewmaster.ms.be.library.kafka.dto.account.card.resource.KafkaAccountResourceCard;
 import io.cryptobrewmaster.ms.be.library.util.KafkaConsumerMDCUtil;
@@ -35,7 +35,7 @@ public class AccountCardKafkaConsumer {
                     log.info("Consumed message for outcome account resource card: {}", accountResourceCardLogInfo);
                     messagingTemplate.convertAndSendToUser(
                             kafkaAccountResourceCard.getAccountId(), "/topic/account/resource/card",
-                            AccountResourceCardUiDto.of(kafkaAccountResourceCard)
+                            AccountResourceCardDto.of(kafkaAccountResourceCard)
                     );
                     log.info("Processed message for outcome account resource card: {}", accountResourceCardLogInfo);
                 },
@@ -60,7 +60,7 @@ public class AccountCardKafkaConsumer {
                     log.info("Consumed message for outcome account beer card: {}", accountBeerCardLogInfo);
                     messagingTemplate.convertAndSendToUser(
                             kafkaAccountBeerCard.getAccountId(), "/topic/account/beer/card",
-                            AccountBeerCardUiDto.of(kafkaAccountBeerCard)
+                            AccountBeerCardDto.of(kafkaAccountBeerCard)
                     );
                     log.info("Processed message for outcome account beer card: {}", accountBeerCardLogInfo);
                 },

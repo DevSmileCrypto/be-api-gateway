@@ -1,14 +1,13 @@
 package io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.service;
 
 import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.beer.AccountBeerCardUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.beer.criteria.AccountBeerCardFetchedCriteriaDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.beer.criteria.AccountBeerCardUiFetchedCriteriaDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.resource.AccountResourceCardUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.resource.criteria.AccountResourceCardFetchedCriteriaDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.resource.criteria.AccountResourceCardUiFetchedCriteriaDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.uri.InventoryUriService;
 import io.cryptobrewmaster.ms.be.library.communication.BaseCommunicationService;
 import io.cryptobrewmaster.ms.be.library.communication.model.RequestLog;
 import io.cryptobrewmaster.ms.be.library.constants.MicroServiceName;
-import io.cryptobrewmaster.ms.be.library.dto.PageDto;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -33,10 +32,11 @@ public class InventoryCommunicationServiceImpl extends BaseCommunicationService 
     }
 
     @Override
-    public PageDto<AccountResourceCardUiDto> fetchAllAccountResourceCardForUi(AccountResourceCardFetchedCriteriaDto criteriaDto) {
+    public List<AccountResourceCardUiDto> fetchAllAccountResourceCardForUi(AccountResourceCardUiFetchedCriteriaDto criteriaDto) {
         return performRequestWithResponse(
                 inventoryUriService.getAccountResourceCardFetchForUiUri(),
-                HttpMethod.POST, criteriaDto, new ParameterizedTypeReference<>() {},
+                HttpMethod.POST, criteriaDto, new ParameterizedTypeReference<>() {
+                },
                 new RequestLog(
                         "Request to fetch all account resource card for ui by criteria send to %s ms. Criteria = %s",
                         List.of(getMicroServiceName(), criteriaDto),
@@ -49,10 +49,11 @@ public class InventoryCommunicationServiceImpl extends BaseCommunicationService 
     }
 
     @Override
-    public PageDto<AccountBeerCardUiDto> fetchAllAccountBeerCardForUi(AccountBeerCardFetchedCriteriaDto criteriaDto) {
+    public List<AccountBeerCardUiDto> fetchAllAccountBeerCardForUi(AccountBeerCardUiFetchedCriteriaDto criteriaDto) {
         return performRequestWithResponse(
                 inventoryUriService.getAccountBeerCardFetchForUiUri(),
-                HttpMethod.POST, criteriaDto, new ParameterizedTypeReference<>() {},
+                HttpMethod.POST, criteriaDto, new ParameterizedTypeReference<>() {
+                },
                 new RequestLog(
                         "Request to fetch all account beer card for ui by criteria send to %s ms. Criteria = %s",
                         List.of(getMicroServiceName(), criteriaDto),

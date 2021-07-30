@@ -6,20 +6,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AccountBeerCardFetchedCriteriaDto {
-    private Set<Long> ids;
+public class AccountBeerCardUiFetchedCriteriaDto {
+    @NotNull
     private String accountId;
     private Set<CardStatus> statuses;
-    private Integer page;
-    private Integer size;
 
-    public static AccountBeerCardFetchedCriteriaDto of(String accountId, Set<CardStatus> statuses) {
-        return new AccountBeerCardFetchedCriteriaDto(null, accountId, statuses, null, null);
+    public static AccountBeerCardUiFetchedCriteriaDto of(String accountId, Set<CardStatus> statuses) {
+        return new AccountBeerCardUiFetchedCriteriaDto(accountId, statuses);
     }
 }

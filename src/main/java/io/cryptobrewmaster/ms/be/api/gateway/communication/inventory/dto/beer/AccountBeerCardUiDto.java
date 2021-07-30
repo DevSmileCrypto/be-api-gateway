@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.cryptobrewmaster.ms.be.library.constants.card.CardQuality;
 import io.cryptobrewmaster.ms.be.library.constants.card.CardStatus;
 import io.cryptobrewmaster.ms.be.library.constants.card.beer.BeerCardName;
-import io.cryptobrewmaster.ms.be.library.kafka.dto.account.card.beer.KafkaAccountBeerCard;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,22 +17,24 @@ import javax.validation.constraints.NotNull;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccountBeerCardUiDto {
     @NotNull
-    private Long id;
+    private CardQuality quality;
     @NotNull
     private BeerCardName cardName;
     @NotNull
-    private CardQuality quality;
-    @NotNull
-    private CardStatus status;
-    @NotNull
-    private Long createdDate;
-    @NotNull
-    private Long lastModifiedDate;
+    private List<Card> accountCards;
 
-    public static AccountBeerCardUiDto of(KafkaAccountBeerCard kafkaAccountBeerCard) {
-        return new AccountBeerCardUiDto(
-                kafkaAccountBeerCard.getId(), kafkaAccountBeerCard.getCardName(), kafkaAccountBeerCard.getQuality(),
-                kafkaAccountBeerCard.getStatus(), kafkaAccountBeerCard.getCreatedDate(), kafkaAccountBeerCard.getLastModifiedDate()
-        );
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Card {
+        @NotNull
+        private Long id;
+        @NotNull
+        private CardStatus status;
+        @NotNull
+        private Long createdDate;
+        @NotNull
+        private Long lastModifiedDate;
     }
 }

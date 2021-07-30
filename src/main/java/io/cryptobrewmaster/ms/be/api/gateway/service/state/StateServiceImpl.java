@@ -4,8 +4,8 @@ import io.cryptobrewmaster.ms.be.api.gateway.communication.account.balance.dto.c
 import io.cryptobrewmaster.ms.be.api.gateway.communication.account.balance.service.AccountBalanceCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.account.energy.dto.criteria.AccountEnergyFetchedCriteriaDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.account.energy.service.AccountEnergyCommunicationService;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.beer.criteria.AccountBeerCardFetchedCriteriaDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.resource.criteria.AccountResourceCardFetchedCriteriaDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.beer.criteria.AccountBeerCardUiFetchedCriteriaDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.resource.criteria.AccountResourceCardUiFetchedCriteriaDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.service.InventoryCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.service.ProductionBuildingCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.configuration.web.security.model.AccountAuthentication;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 import static io.cryptobrewmaster.ms.be.library.constants.card.CardStatus.ACTIVE;
-import static io.cryptobrewmaster.ms.be.library.constants.card.CardStatus.CRAFTED;
 
 @RequiredArgsConstructor
 @Service
@@ -44,17 +43,17 @@ public class StateServiceImpl implements StateService {
         var energyFetchedCriteriaDto = AccountEnergyFetchedCriteriaDto.of(accountId);
         var accountEnergyForUi = accountEnergyCommunicationService.fetchAllAccountEnergyForUi(energyFetchedCriteriaDto);
 
-        var cardStatuses = Set.of(ACTIVE, CRAFTED);
+        var cardStatuses = Set.of(ACTIVE);
 
-        var resourceCardFetchedCriteriaDto = AccountResourceCardFetchedCriteriaDto.of(accountId, cardStatuses);
-        var accountResourceCardForUi = inventoryCommunicationService.fetchAllAccountResourceCardForUi(resourceCardFetchedCriteriaDto);
+        var resourceCardFetchedCriteriaDto = AccountResourceCardUiFetchedCriteriaDto.of(accountId, cardStatuses);
+        var accountResourceCardsForUi = inventoryCommunicationService.fetchAllAccountResourceCardForUi(resourceCardFetchedCriteriaDto);
 
-        var beerCardFetchedCriteriaDto = AccountBeerCardFetchedCriteriaDto.of(accountId, cardStatuses);
-        var accountBeerCardForUi = inventoryCommunicationService.fetchAllAccountBeerCardForUi(beerCardFetchedCriteriaDto);
+        var beerCardFetchedCriteriaDto = AccountBeerCardUiFetchedCriteriaDto.of(accountId, cardStatuses);
+        var accountBeerCardsForUi = inventoryCommunicationService.fetchAllAccountBeerCardForUi(beerCardFetchedCriteriaDto);
 
         return new AccountStateDto(
                 accountBalanceForUi.getElements(), accountEnergyForUi.getElements(),
-                accountResourceCardForUi.getElements(), accountBeerCardForUi.getElements()
+                accountResourceCardsForUi, accountBeerCardsForUi
         );
     }
 
