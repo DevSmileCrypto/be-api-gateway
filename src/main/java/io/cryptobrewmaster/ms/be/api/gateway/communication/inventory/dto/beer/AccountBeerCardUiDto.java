@@ -21,7 +21,7 @@ public class AccountBeerCardUiDto {
     @NotNull
     private BeerCardName cardName;
     @NotNull
-    private List<Card> accountCards;
+    private List<Card> cards;
 
     @Data
     @NoArgsConstructor
