@@ -21,6 +21,8 @@ public class AccountEnergyUiDto {
     @NotNull
     private Double quantity;
     @NotNull
+    private Long recoveryDate;
+    @NotNull
     private Long createdDate;
     @NotNull
     private Long lastModifiedDate;
@@ -28,8 +30,8 @@ public class AccountEnergyUiDto {
     public static AccountEnergyUiDto of(KafkaAccountEnergy kafkaAccountEnergy) {
         return new AccountEnergyUiDto(
                 kafkaAccountEnergy.getId(), kafkaAccountEnergy.getType(),
-                kafkaAccountEnergy.getQuantity(), kafkaAccountEnergy.getCreatedDate(),
-                kafkaAccountEnergy.getLastModifiedDate()
+                kafkaAccountEnergy.getQuantity(), kafkaAccountEnergy.getRecoveryDate(),
+                kafkaAccountEnergy.getCreatedDate(), kafkaAccountEnergy.getLastModifiedDate()
         );
     }
 }

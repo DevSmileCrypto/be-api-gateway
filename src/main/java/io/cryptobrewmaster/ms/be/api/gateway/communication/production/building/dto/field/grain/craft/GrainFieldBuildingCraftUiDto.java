@@ -30,6 +30,10 @@ public class GrainFieldBuildingCraftUiDto {
     @NotNull
     private CardQuality craftedCardQuality;
     @NotNull
+    private Long craftTime;
+    @NotNull
+    private Long craftEndedDate;
+    @NotNull
     private Long createdDate;
     @NotNull
     private Long lastModifiedDate;
@@ -39,6 +43,7 @@ public class GrainFieldBuildingCraftUiDto {
                 kafkaGrainFieldBuildingCraft.getId(), kafkaGrainFieldBuildingCraft.getResourceRecipeId(),
                 kafkaGrainFieldBuildingCraft.getStatus(), kafkaGrainFieldBuildingCraft.getCraftedAccountResourceCardId(),
                 kafkaGrainFieldBuildingCraft.getCraftedResourceCardName(), kafkaGrainFieldBuildingCraft.getCraftedCardQuality(),
+                kafkaGrainFieldBuildingCraft.getCraftTime(), kafkaGrainFieldBuildingCraft.getCraftEndedDate(),
                 kafkaGrainFieldBuildingCraft.getCreatedDate(), kafkaGrainFieldBuildingCraft.getLastModifiedDate()
         );
     }

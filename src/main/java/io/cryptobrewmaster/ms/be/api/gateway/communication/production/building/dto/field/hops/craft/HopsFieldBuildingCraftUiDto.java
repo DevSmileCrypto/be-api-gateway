@@ -30,6 +30,10 @@ public class HopsFieldBuildingCraftUiDto {
     @NotNull
     private CardQuality craftedCardQuality;
     @NotNull
+    private Long craftTime;
+    @NotNull
+    private Long craftEndedDate;
+    @NotNull
     private Long createdDate;
     @NotNull
     private Long lastModifiedDate;
@@ -39,6 +43,7 @@ public class HopsFieldBuildingCraftUiDto {
                 kafkaHopsFieldBuildingCraft.getId(), kafkaHopsFieldBuildingCraft.getResourceRecipeId(),
                 kafkaHopsFieldBuildingCraft.getStatus(), kafkaHopsFieldBuildingCraft.getCraftedAccountResourceCardId(),
                 kafkaHopsFieldBuildingCraft.getCraftedResourceCardName(), kafkaHopsFieldBuildingCraft.getCraftedCardQuality(),
+                kafkaHopsFieldBuildingCraft.getCraftTime(), kafkaHopsFieldBuildingCraft.getCraftEndedDate(),
                 kafkaHopsFieldBuildingCraft.getCreatedDate(), kafkaHopsFieldBuildingCraft.getLastModifiedDate()
         );
     }

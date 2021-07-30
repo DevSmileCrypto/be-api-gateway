@@ -30,6 +30,10 @@ public class AcademyYeastLabBuildingCraftUiDto {
     @NotNull
     private CardQuality craftedCardQuality;
     @NotNull
+    private Long craftTime;
+    @NotNull
+    private Long craftEndedDate;
+    @NotNull
     private Long createdDate;
     @NotNull
     private Long lastModifiedDate;
@@ -39,6 +43,7 @@ public class AcademyYeastLabBuildingCraftUiDto {
                 kafkaAcademyYeastLabBuildingCraft.getId(), kafkaAcademyYeastLabBuildingCraft.getResourceRecipeId(),
                 kafkaAcademyYeastLabBuildingCraft.getStatus(), kafkaAcademyYeastLabBuildingCraft.getCraftedAccountResourceCardId(),
                 kafkaAcademyYeastLabBuildingCraft.getCraftedResourceCardName(), kafkaAcademyYeastLabBuildingCraft.getCraftedCardQuality(),
+                kafkaAcademyYeastLabBuildingCraft.getCraftTime(), kafkaAcademyYeastLabBuildingCraft.getCraftEndedDate(),
                 kafkaAcademyYeastLabBuildingCraft.getCreatedDate(), kafkaAcademyYeastLabBuildingCraft.getLastModifiedDate()
         );
     }

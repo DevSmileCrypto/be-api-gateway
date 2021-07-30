@@ -30,6 +30,10 @@ public class BrewHouseBuildingCraftUiDto {
     @NotNull
     private CardQuality craftedCardQuality;
     @NotNull
+    private Long craftTime;
+    @NotNull
+    private Long craftEndedDate;
+    @NotNull
     private Long createdDate;
     @NotNull
     private Long lastModifiedDate;
@@ -39,6 +43,7 @@ public class BrewHouseBuildingCraftUiDto {
                 kafkaBrewHouseBuildingCraft.getId(), kafkaBrewHouseBuildingCraft.getBeerRecipeId(),
                 kafkaBrewHouseBuildingCraft.getStatus(), kafkaBrewHouseBuildingCraft.getCraftedAccountBeerCardId(),
                 kafkaBrewHouseBuildingCraft.getCraftedBeerCardName(), kafkaBrewHouseBuildingCraft.getCraftedCardQuality(),
+                kafkaBrewHouseBuildingCraft.getCraftTime(), kafkaBrewHouseBuildingCraft.getCraftEndedDate(),
                 kafkaBrewHouseBuildingCraft.getCreatedDate(), kafkaBrewHouseBuildingCraft.getLastModifiedDate()
         );
     }

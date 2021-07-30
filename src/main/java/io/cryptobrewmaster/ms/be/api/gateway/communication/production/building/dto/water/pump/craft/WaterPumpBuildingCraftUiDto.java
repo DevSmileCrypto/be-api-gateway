@@ -30,6 +30,10 @@ public class WaterPumpBuildingCraftUiDto {
     @NotNull
     private CardQuality craftedCardQuality;
     @NotNull
+    private Long craftTime;
+    @NotNull
+    private Long craftEndedDate;
+    @NotNull
     private Long createdDate;
     @NotNull
     private Long lastModifiedDate;
@@ -39,6 +43,7 @@ public class WaterPumpBuildingCraftUiDto {
                 kafkaWaterPumpBuildingCraft.getId(), kafkaWaterPumpBuildingCraft.getResourceRecipeId(),
                 kafkaWaterPumpBuildingCraft.getStatus(), kafkaWaterPumpBuildingCraft.getCraftedAccountResourceCardId(),
                 kafkaWaterPumpBuildingCraft.getCraftedResourceCardName(), kafkaWaterPumpBuildingCraft.getCraftedCardQuality(),
+                kafkaWaterPumpBuildingCraft.getCraftTime(), kafkaWaterPumpBuildingCraft.getCraftEndedDate(),
                 kafkaWaterPumpBuildingCraft.getCreatedDate(), kafkaWaterPumpBuildingCraft.getLastModifiedDate()
         );
     }

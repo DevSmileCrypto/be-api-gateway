@@ -30,6 +30,10 @@ public class MaltHouseBuildingCraftUiDto {
     @NotNull
     private CardQuality craftedCardQuality;
     @NotNull
+    private Long craftTime;
+    @NotNull
+    private Long craftEndedDate;
+    @NotNull
     private Long createdDate;
     @NotNull
     private Long lastModifiedDate;
@@ -39,6 +43,7 @@ public class MaltHouseBuildingCraftUiDto {
                 kafkaMaltHouseBuildingCraft.getId(), kafkaMaltHouseBuildingCraft.getResourceRecipeId(),
                 kafkaMaltHouseBuildingCraft.getStatus(), kafkaMaltHouseBuildingCraft.getCraftedAccountResourceCardId(),
                 kafkaMaltHouseBuildingCraft.getCraftedResourceCardName(), kafkaMaltHouseBuildingCraft.getCraftedCardQuality(),
+                kafkaMaltHouseBuildingCraft.getCraftTime(), kafkaMaltHouseBuildingCraft.getCraftEndedDate(),
                 kafkaMaltHouseBuildingCraft.getCreatedDate(), kafkaMaltHouseBuildingCraft.getLastModifiedDate()
         );
     }

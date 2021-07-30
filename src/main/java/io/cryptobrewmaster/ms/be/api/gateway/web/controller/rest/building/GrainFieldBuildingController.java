@@ -32,7 +32,7 @@ public class GrainFieldBuildingController {
     private final ProductionBuildingCommunicationService productionBuildingCommunicationService;
 
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("/craft/history/ui")
+    @GetMapping("/craft/history")
     public PageDto<GrainFieldBuildingCraftHistoryUiDto> getAllCraftHistory(@RequestParam(required = false) Integer page,
                                                                            @RequestParam(required = false) Integer size) {
         var accountId = ((AccountAuthentication) SecurityContextHolder.getContext().getAuthentication()).getAccountId();
