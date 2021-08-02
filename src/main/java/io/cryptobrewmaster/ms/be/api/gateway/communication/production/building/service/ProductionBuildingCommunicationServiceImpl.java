@@ -1,19 +1,14 @@
 package io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.service;
 
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.academy.lab.yeast.AcademyYeastLabBuildingUiDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.AccountBuildingStateUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.academy.lab.yeast.craft.history.AcademyYeastLabBuildingCraftHistoryUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.field.grain.GrainFieldBuildingUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.field.grain.craft.history.GrainFieldBuildingCraftHistoryUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.field.hops.HopsFieldBuildingUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.field.hops.craft.history.HopsFieldBuildingCraftHistoryUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.house.brew.BrewHouseBuildingUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.house.brew.craft.history.BrewHouseBuildingCraftHistoryUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.house.malt.MaltHouseBuildingUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.house.malt.craft.history.MaltHouseBuildingCraftHistoryUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.request.BuildingCraftStartedRequestDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.request.BuildingRentedRequestDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.response.BuildingCraftStartedResponseDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.water.pump.WaterPumpBuildingUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.water.pump.craft.history.WaterPumpBuildingCraftHistoryUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.uri.ProductionBuildingUriService;
 import io.cryptobrewmaster.ms.be.library.communication.BaseCommunicationService;
@@ -41,22 +36,6 @@ public class ProductionBuildingCommunicationServiceImpl extends BaseCommunicatio
 
     String getMicroServiceName() {
         return MicroServiceName.BE_PRODUCTION_BUILDING.getProviderName();
-    }
-
-    @Override
-    public WaterPumpBuildingUiDto getWaterPumpBuildingForUi(String accountId) {
-        return performRequestWithResponse(
-                productionBuildingUriService.getWaterPumpBuildingForUiByAccountIdUri(accountId),
-                HttpMethod.GET, WaterPumpBuildingUiDto.class,
-                new RequestLog(
-                        "Request to get water pump building for ui by account id send to %s ms. Account id = %s",
-                        List.of(getMicroServiceName(), accountId),
-                        "Response on get water pump building for ui by account id from %s ms.",
-                        List.of(getMicroServiceName()),
-                        "No response from %s ms on get water pump building for ui by account id request. Account id = %s.",
-                        List.of(getMicroServiceName(), accountId)
-                )
-        );
     }
 
     @Override
@@ -152,22 +131,6 @@ public class ProductionBuildingCommunicationServiceImpl extends BaseCommunicatio
                         List.of(getMicroServiceName()),
                         "No response from %s ms on completion water pump building craft request. Account id = %s, building craft id = %s.",
                         List.of(getMicroServiceName(), accountId, buildingCraftId)
-                )
-        );
-    }
-
-    @Override
-    public GrainFieldBuildingUiDto getGrainFieldBuildingForUi(String accountId) {
-        return performRequestWithResponse(
-                productionBuildingUriService.getGrainFieldBuildingForUiByAccountIdUri(accountId),
-                HttpMethod.GET, GrainFieldBuildingUiDto.class,
-                new RequestLog(
-                        "Request to get grain field building for ui by account id send to %s ms. Account id = %s",
-                        List.of(getMicroServiceName(), accountId),
-                        "Response on get grain field building for ui by account id from %s ms.",
-                        List.of(getMicroServiceName()),
-                        "No response from %s ms on get grain field building for ui by account id request. Account id = %s.",
-                        List.of(getMicroServiceName(), accountId)
                 )
         );
     }
@@ -270,22 +233,6 @@ public class ProductionBuildingCommunicationServiceImpl extends BaseCommunicatio
     }
 
     @Override
-    public HopsFieldBuildingUiDto getHopsFieldBuildingForUi(String accountId) {
-        return performRequestWithResponse(
-                productionBuildingUriService.getHopsFieldBuildingForUiByAccountIdUri(accountId),
-                HttpMethod.GET, HopsFieldBuildingUiDto.class,
-                new RequestLog(
-                        "Request to get hops field building for ui by account id send to %s ms. Account id = %s",
-                        List.of(getMicroServiceName(), accountId),
-                        "Response on get hops field building for ui by account id from %s ms.",
-                        List.of(getMicroServiceName()),
-                        "No response from %s ms on get hops field building for ui by account id request. Account id = %s.",
-                        List.of(getMicroServiceName(), accountId)
-                )
-        );
-    }
-
-    @Override
     public PageDto<HopsFieldBuildingCraftHistoryUiDto> getAllHopsFieldBuildingCraftHistoryForUi(String accountId, Integer page, Integer size) {
         return performRequestWithResponse(
                 productionBuildingUriService.getAllHopsFieldBuildingCraftHistoryForUiByAccountIdUri(accountId, page, size),
@@ -378,22 +325,6 @@ public class ProductionBuildingCommunicationServiceImpl extends BaseCommunicatio
                         List.of(getMicroServiceName()),
                         "No response from %s ms on completion hops field building craft request. Account id = %s, building craft id = %s.",
                         List.of(getMicroServiceName(), accountId, buildingCraftId)
-                )
-        );
-    }
-
-    @Override
-    public AcademyYeastLabBuildingUiDto getAcademyYeastLabBuildingForUi(String accountId) {
-        return performRequestWithResponse(
-                productionBuildingUriService.getAcademyYeastLabBuildingForUiByAccountIdUri(accountId),
-                HttpMethod.GET, AcademyYeastLabBuildingUiDto.class,
-                new RequestLog(
-                        "Request to get academy yeast lab building for ui by account id send to %s ms. Account id = %s",
-                        List.of(getMicroServiceName(), accountId),
-                        "Response on get academy yeast lab building for ui by account id from %s ms.",
-                        List.of(getMicroServiceName()),
-                        "No response from %s ms on get academy yeast lab building for ui by account id request. Account id = %s.",
-                        List.of(getMicroServiceName(), accountId)
                 )
         );
     }
@@ -496,22 +427,6 @@ public class ProductionBuildingCommunicationServiceImpl extends BaseCommunicatio
     }
 
     @Override
-    public MaltHouseBuildingUiDto getMaltHouseBuildingForUi(String accountId) {
-        return performRequestWithResponse(
-                productionBuildingUriService.getMaltHouseBuildingForUiByAccountIdUri(accountId),
-                HttpMethod.GET, MaltHouseBuildingUiDto.class,
-                new RequestLog(
-                        "Request to get malt house building for ui by account id send to %s ms. Account id = %s",
-                        List.of(getMicroServiceName(), accountId),
-                        "Response on get malt house building for ui by account id from %s ms.",
-                        List.of(getMicroServiceName()),
-                        "No response from %s ms on get malt house building for ui by account id request. Account id = %s.",
-                        List.of(getMicroServiceName(), accountId)
-                )
-        );
-    }
-
-    @Override
     public PageDto<MaltHouseBuildingCraftHistoryUiDto> getAllMaltHouseBuildingCraftHistoryForUi(String accountId, Integer page, Integer size) {
         return performRequestWithResponse(
                 productionBuildingUriService.getAllMaltHouseBuildingCraftHistoryForUiByAccountIdUri(accountId, page, size),
@@ -609,22 +524,6 @@ public class ProductionBuildingCommunicationServiceImpl extends BaseCommunicatio
     }
 
     @Override
-    public BrewHouseBuildingUiDto getBrewHouseBuildingForUi(String accountId) {
-        return performRequestWithResponse(
-                productionBuildingUriService.getBrewHouseBuildingForUiByAccountIdUri(accountId),
-                HttpMethod.GET, BrewHouseBuildingUiDto.class,
-                new RequestLog(
-                        "Request to get brew house building for ui by account id send to %s ms. Account id = %s",
-                        List.of(getMicroServiceName(), accountId),
-                        "Response on get brew house building for ui by account id from %s ms.",
-                        List.of(getMicroServiceName()),
-                        "No response from %s ms on get brew house building for ui by account id request. Account id = %s.",
-                        List.of(getMicroServiceName(), accountId)
-                )
-        );
-    }
-
-    @Override
     public PageDto<BrewHouseBuildingCraftHistoryUiDto> getAllBrewHouseBuildingCraftHistoryForUi(String accountId, Integer page, Integer size) {
         return performRequestWithResponse(
                 productionBuildingUriService.getAllBrewHouseBuildingCraftHistoryForUiByAccountIdUri(accountId, page, size),
@@ -701,6 +600,22 @@ public class ProductionBuildingCommunicationServiceImpl extends BaseCommunicatio
                         List.of(getMicroServiceName()),
                         "No response from %s ms on completion brew house building craft request. Account id = %s, building craft id = %s.",
                         List.of(getMicroServiceName(), accountId, buildingCraftId)
+                )
+        );
+    }
+
+    @Override
+    public AccountBuildingStateUiDto getAccountBuildingStateForUi(String accountId) {
+        return performRequestWithResponse(
+                productionBuildingUriService.getAccountBuildingStateForUiByAccountIdUri(accountId),
+                HttpMethod.POST, AccountBuildingStateUiDto.class,
+                new RequestLog(
+                        "Request to get account building state for ui by account id send to %s ms. Account id = %s",
+                        List.of(getMicroServiceName(), accountId),
+                        "Response on get account building state for ui by account id from %s ms.",
+                        List.of(getMicroServiceName()),
+                        "No response from %s ms on get account building state for ui by account id request. Account id = %s.",
+                        List.of(getMicroServiceName(), accountId)
                 )
         );
     }

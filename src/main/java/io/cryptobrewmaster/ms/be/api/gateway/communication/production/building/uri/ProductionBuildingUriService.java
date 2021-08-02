@@ -8,14 +8,6 @@ import java.net.URI;
 public interface ProductionBuildingUriService {
 
     /**
-     * Gets water pump building for ui by account id uri.
-     *
-     * @param accountId the account id
-     * @return the water pump building for ui by account id uri
-     */
-    URI getWaterPumpBuildingForUiByAccountIdUri(String accountId);
-
-    /**
      * Gets all water pump building craft history for ui by account id uri.
      *
      * @param accountId the account id
@@ -67,14 +59,6 @@ public interface ProductionBuildingUriService {
      * @return the water pump building craft completion uri
      */
     URI getWaterPumpBuildingCraftCompletionUri(String accountId, Long buildingCraftId);
-
-    /**
-     * Gets grain field building for ui by account id uri.
-     *
-     * @param accountId the account id
-     * @return the grain field building for ui by account id uri
-     */
-    URI getGrainFieldBuildingForUiByAccountIdUri(String accountId);
 
     /**
      * Gets all grain field building craft history for ui by account id uri.
@@ -130,14 +114,6 @@ public interface ProductionBuildingUriService {
     URI getGrainFieldBuildingCraftCompletionUri(String accountId, Long buildingCraftId);
 
     /**
-     * Gets hops field building for ui by account id uri.
-     *
-     * @param accountId the account id
-     * @return the hops field building for ui by account id uri
-     */
-    URI getHopsFieldBuildingForUiByAccountIdUri(String accountId);
-
-    /**
      * Gets all hops field building craft history for ui by account id uri.
      *
      * @param accountId the account id
@@ -189,14 +165,6 @@ public interface ProductionBuildingUriService {
      * @return the hops field building craft completion uri
      */
     URI getHopsFieldBuildingCraftCompletionUri(String accountId, Long buildingCraftId);
-
-    /**
-     * Gets academy yeast lab building for ui by account id uri.
-     *
-     * @param accountId the account id
-     * @return the academy yeast lab building for ui by account id uri
-     */
-    URI getAcademyYeastLabBuildingForUiByAccountIdUri(String accountId);
 
     /**
      * Gets all academy yeast lab building craft history for ui by account id uri.
@@ -252,14 +220,6 @@ public interface ProductionBuildingUriService {
     URI getAcademyYeastLabBuildingCraftCompletionUri(String accountId, Long buildingCraftId);
 
     /**
-     * Gets malt house building for ui by account id uri.
-     *
-     * @param accountId the account id
-     * @return the malt house building for ui by account id uri
-     */
-    URI getMaltHouseBuildingForUiByAccountIdUri(String accountId);
-
-    /**
      * Gets all malt house building craft history for ui by account id uri.
      *
      * @param accountId the account id
@@ -313,14 +273,6 @@ public interface ProductionBuildingUriService {
     URI getMaltHouseBuildingCraftCompletionUri(String accountId, Long buildingCraftId);
 
     /**
-     * Gets brew house building for ui by account id uri.
-     *
-     * @param accountId the account id
-     * @return the brew house building for ui by account id uri
-     */
-    URI getBrewHouseBuildingForUiByAccountIdUri(String accountId);
-
-    /**
      * Gets all brew house building craft history for ui by account id uri.
      *
      * @param accountId the account id
@@ -364,5 +316,13 @@ public interface ProductionBuildingUriService {
      * @return the brew house building craft completion uri
      */
     URI getBrewHouseBuildingCraftCompletionUri(String accountId, Long buildingCraftId);
+
+    /**
+     * Gets account building state for ui by account id uri.
+     *
+     * @param accountId the account id
+     * @return the account building state for ui by account id uri
+     */
+    URI getAccountBuildingStateForUiByAccountIdUri(String accountId);
 
 }

@@ -1,8 +1,6 @@
-package io.cryptobrewmaster.ms.be.api.gateway.web.model.state.account;
+package io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.account.balance.dto.AccountBalanceUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.account.energy.dto.AccountEnergyUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.beer.AccountBeerCardUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.resource.AccountResourceCardUiDto;
 import lombok.AllArgsConstructor;
@@ -17,13 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AccountStateDto {
-    @NotNull
-    @ToString.Exclude
-    private List<AccountBalanceUiDto> accountBalances;
-    @NotNull
-    @ToString.Exclude
-    private List<AccountEnergyUiDto> accountEnergies;
+public class AccountCardStateUiDto {
     @NotNull
     @ToString.Exclude
     private List<AccountResourceCardUiDto> accountResourceCards;

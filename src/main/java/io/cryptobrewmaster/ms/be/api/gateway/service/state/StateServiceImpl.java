@@ -1,24 +1,28 @@
 package io.cryptobrewmaster.ms.be.api.gateway.service.state;
 
+import com.spotify.futures.CompletableFutures;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.account.balance.dto.criteria.AccountBalanceFetchedCriteriaDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.account.balance.service.AccountBalanceCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.account.energy.dto.criteria.AccountEnergyFetchedCriteriaDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.account.energy.service.AccountEnergyCommunicationService;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.beer.criteria.AccountBeerCardUiFetchedCriteriaDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.resource.criteria.AccountResourceCardUiFetchedCriteriaDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.dto.AccountCardUiFetchedCriteriaDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.inventory.service.InventoryCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.service.ProductionBuildingCommunicationService;
 import io.cryptobrewmaster.ms.be.api.gateway.configuration.web.security.model.AccountAuthentication;
-import io.cryptobrewmaster.ms.be.api.gateway.web.model.state.StateDto;
-import io.cryptobrewmaster.ms.be.api.gateway.web.model.state.account.AccountStateDto;
-import io.cryptobrewmaster.ms.be.api.gateway.web.model.state.building.BuildingStateDto;
+import io.cryptobrewmaster.ms.be.api.gateway.web.model.state.StateUiDto;
+import io.cryptobrewmaster.ms.be.api.gateway.web.model.state.account.AccountStateUiDto;
+import io.cryptobrewmaster.ms.be.library.exception.InnerServiceException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 import static io.cryptobrewmaster.ms.be.library.constants.card.CardStatus.ACTIVE;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class StateServiceImpl implements StateService {
@@ -29,45 +33,56 @@ public class StateServiceImpl implements StateService {
 
     private final ProductionBuildingCommunicationService productionBuildingCommunicationService;
 
+    private final ThreadPoolTaskExecutor cachedMDCThreadPoolTaskExecutor;
+
     @Override
-    public StateDto getState(AccountAuthentication authentication) {
+    public StateUiDto getState(AccountAuthentication authentication) {
         var accountState = getAccountState(authentication.getAccountId());
-        var buildingState = getBuildingState(authentication.getAccountId());
-        return new StateDto(accountState, buildingState);
+        var accountBuildingState = productionBuildingCommunicationService.getAccountBuildingStateForUi(
+                authentication.getAccountId()
+        );
+        return new StateUiDto(accountState, accountBuildingState);
     }
 
-    private AccountStateDto getAccountState(String accountId) {
-        var balanceUiFetchedCriteriaDto = AccountBalanceFetchedCriteriaDto.of(accountId);
-        var accountBalanceForUi = accountBalanceCommunicationService.fetchAllAccountBalanceForUi(balanceUiFetchedCriteriaDto);
+    private AccountStateUiDto getAccountState(String accountId) {
+        var accountBalancesCompletableFuture = CompletableFuture.supplyAsync(() -> {
+            var balanceUiFetchedCriteriaDto = AccountBalanceFetchedCriteriaDto.of(accountId);
+            return accountBalanceCommunicationService.fetchAllAccountBalanceForUi(balanceUiFetchedCriteriaDto).getElements();
+        }, cachedMDCThreadPoolTaskExecutor);
 
-        var energyFetchedCriteriaDto = AccountEnergyFetchedCriteriaDto.of(accountId);
-        var accountEnergyForUi = accountEnergyCommunicationService.fetchAllAccountEnergyForUi(energyFetchedCriteriaDto);
+        var accountEnergiesCompletableFuture = CompletableFuture.supplyAsync(() -> {
+            var energyFetchedCriteriaDto = AccountEnergyFetchedCriteriaDto.of(accountId);
+            return accountEnergyCommunicationService.fetchAllAccountEnergyForUi(energyFetchedCriteriaDto).getElements();
+        }, cachedMDCThreadPoolTaskExecutor);
 
-        var cardStatuses = Set.of(ACTIVE);
+        var accountCardStateCompletableFuture = CompletableFuture.supplyAsync(() -> {
+            var cardStatuses = Set.of(ACTIVE);
 
-        var resourceCardFetchedCriteriaDto = AccountResourceCardUiFetchedCriteriaDto.of(accountId, cardStatuses);
-        var accountResourceCardsForUi = inventoryCommunicationService.fetchAllAccountResourceCardForUi(resourceCardFetchedCriteriaDto);
+            var accountCardFetchedCriteriaDto = AccountCardUiFetchedCriteriaDto.of(accountId, cardStatuses);
+            return inventoryCommunicationService.getAccountCardStateForUi(accountCardFetchedCriteriaDto);
 
-        var beerCardFetchedCriteriaDto = AccountBeerCardUiFetchedCriteriaDto.of(accountId, cardStatuses);
-        var accountBeerCardsForUi = inventoryCommunicationService.fetchAllAccountBeerCardForUi(beerCardFetchedCriteriaDto);
+        }, cachedMDCThreadPoolTaskExecutor);
 
-        return new AccountStateDto(
-                accountBalanceForUi.getElements(), accountEnergyForUi.getElements(),
-                accountResourceCardsForUi, accountBeerCardsForUi
-        );
-    }
+        try {
+            return CompletableFutures.combine(
+                            accountBalancesCompletableFuture, accountEnergiesCompletableFuture, accountCardStateCompletableFuture,
+                            AccountStateUiDto::new
+                    )
+                    .toCompletableFuture()
+                    .get();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
 
-    private BuildingStateDto getBuildingState(String accountId) {
-        var waterPumpBuildingUiDto = productionBuildingCommunicationService.getWaterPumpBuildingForUi(accountId);
-        var grainFieldBuildingUiDto = productionBuildingCommunicationService.getGrainFieldBuildingForUi(accountId);
-        var hopsFieldBuildingUiDto = productionBuildingCommunicationService.getHopsFieldBuildingForUi(accountId);
-        var academyYeastLabBuildingUiDto = productionBuildingCommunicationService.getAcademyYeastLabBuildingForUi(accountId);
-        var maltHouseBuildingUiDto = productionBuildingCommunicationService.getMaltHouseBuildingForUi(accountId);
-        var brewHouseBuildingUiDto = productionBuildingCommunicationService.getBrewHouseBuildingForUi(accountId);
-        return new BuildingStateDto(
-                waterPumpBuildingUiDto, grainFieldBuildingUiDto, hopsFieldBuildingUiDto,
-                academyYeastLabBuildingUiDto, maltHouseBuildingUiDto, brewHouseBuildingUiDto
-        );
+            throw new InnerServiceException(
+                    String.format("Error by interrupted exception while on get account state by account id = %s. Error = %s",
+                            accountId, e.getMessage())
+            );
+        } catch (Exception e) {
+            throw new InnerServiceException(
+                    String.format("Error while on get account state by account id = %s. Error = %s",
+                            accountId, e.getMessage())
+            );
+        }
     }
 
 }

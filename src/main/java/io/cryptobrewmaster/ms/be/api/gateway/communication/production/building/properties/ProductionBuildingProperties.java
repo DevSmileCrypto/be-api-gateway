@@ -18,7 +18,6 @@ public class ProductionBuildingProperties {
     @Getter
     @Setter
     public static class Path {
-        private String waterPumpBuildingForUi;
         private String waterPumpBuildingCraftHistoryForUi;
         private String waterPumpBuildingRent;
         private String waterPumpBuildingRestoreCondition;
@@ -26,7 +25,6 @@ public class ProductionBuildingProperties {
         private String waterPumpBuildingCraftClaim;
         private String waterPumpBuildingCraftCompletion;
 
-        private String grainFieldBuildingForUi;
         private String grainFieldBuildingCraftHistoryForUi;
         private String grainFieldBuildingRent;
         private String grainFieldBuildingRestoreCondition;
@@ -34,7 +32,6 @@ public class ProductionBuildingProperties {
         private String grainFieldBuildingCraftClaim;
         private String grainFieldBuildingCraftCompletion;
 
-        private String hopsFieldBuildingForUi;
         private String hopsFieldBuildingCraftHistoryForUi;
         private String hopsFieldBuildingRent;
         private String hopsFieldBuildingRestoreCondition;
@@ -42,7 +39,6 @@ public class ProductionBuildingProperties {
         private String hopsFieldBuildingCraftClaim;
         private String hopsFieldBuildingCraftCompletion;
 
-        private String academyYeastLabBuildingForUi;
         private String academyYeastLabBuildingCraftHistoryForUi;
         private String academyYeastLabBuildingRent;
         private String academyYeastLabBuildingRestoreCondition;
@@ -50,7 +46,6 @@ public class ProductionBuildingProperties {
         private String academyYeastLabBuildingCraftClaim;
         private String academyYeastLabBuildingCraftCompletion;
 
-        private String maltHouseBuildingForUi;
         private String maltHouseBuildingCraftHistoryForUi;
         private String maltHouseBuildingRent;
         private String maltHouseBuildingRestoreCondition;
@@ -58,12 +53,14 @@ public class ProductionBuildingProperties {
         private String maltHouseBuildingCraftClaim;
         private String maltHouseBuildingCraftCompletion;
 
-        private String brewHouseBuildingForUi;
         private String brewHouseBuildingCraftHistoryForUi;
         private String brewHouseBuildingRestoreCondition;
         private String brewHouseBuildingCraft;
         private String brewHouseBuildingCraftClaim;
         private String brewHouseBuildingCraftCompletion;
+
+        private String accountBuildingStateForUi;
+
     }
 
     @Getter

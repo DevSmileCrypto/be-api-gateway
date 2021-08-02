@@ -14,18 +14,9 @@ public class InventoryUriServiceImpl implements InventoryUriService {
     private final InventoryProperties inventoryProperties;
 
     @Override
-    public URI getAccountResourceCardFetchForUiUri() {
+    public URI getAccountCardStateFetchForUiUri() {
         return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
-                .path(inventoryProperties.getPath().getAccountResourceCardFetchForUi())
-                .build()
-                .encode()
-                .toUri();
-    }
-
-    @Override
-    public URI getAccountBeerCardFetchForUiUri() {
-        return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
-                .path(inventoryProperties.getPath().getAccountBeerCardFetchForUi())
+                .path(inventoryProperties.getPath().getAccountCardStateFetchForUi())
                 .build()
                 .encode()
                 .toUri();

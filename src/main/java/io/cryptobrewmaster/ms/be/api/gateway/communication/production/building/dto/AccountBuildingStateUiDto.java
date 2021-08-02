@@ -1,4 +1,4 @@
-package io.cryptobrewmaster.ms.be.api.gateway.web.model.state.building;
+package io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.academy.lab.yeast.AcademyYeastLabBuildingUiDto;
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildingStateDto {
+public class AccountBuildingStateUiDto {
     @NotNull
     private WaterPumpBuildingUiDto waterPumpBuilding;
     @NotNull

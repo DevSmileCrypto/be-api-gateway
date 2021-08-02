@@ -8,17 +8,10 @@ import java.net.URI;
 public interface InventoryUriService {
 
     /**
-     * Gets account resource card fetch for ui uri.
+     * Gets account card state fetch for ui uri.
      *
-     * @return the account resource card fetch for ui uri
+     * @return the account card state fetch for ui uri
      */
-    URI getAccountResourceCardFetchForUiUri();
-
-    /**
-     * Gets account beer card fetch for ui uri.
-     *
-     * @return the account beer card fetch for ui uri
-     */
-    URI getAccountBeerCardFetchForUiUri();
+    URI getAccountCardStateFetchForUiUri();
 
 }

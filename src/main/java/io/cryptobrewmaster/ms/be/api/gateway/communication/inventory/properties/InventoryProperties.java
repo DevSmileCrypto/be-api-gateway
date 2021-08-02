@@ -18,8 +18,7 @@ public class InventoryProperties {
     @Getter
     @Setter
     public static class Path {
-        private String accountResourceCardFetchForUi;
-        private String accountBeerCardFetchForUi;
+        private String accountCardStateFetchForUi;
     }
 
     @Getter

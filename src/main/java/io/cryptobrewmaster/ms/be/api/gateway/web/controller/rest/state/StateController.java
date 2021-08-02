@@ -2,7 +2,7 @@ package io.cryptobrewmaster.ms.be.api.gateway.web.controller.rest.state;
 
 import io.cryptobrewmaster.ms.be.api.gateway.configuration.web.security.model.AccountAuthentication;
 import io.cryptobrewmaster.ms.be.api.gateway.service.state.StateService;
-import io.cryptobrewmaster.ms.be.api.gateway.web.model.state.StateDto;
+import io.cryptobrewmaster.ms.be.api.gateway.web.model.state.StateUiDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +21,7 @@ public class StateController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping
-    public StateDto getState() {
+    public StateUiDto getState() {
         var authentication = (AccountAuthentication) SecurityContextHolder.getContext().getAuthentication();
         log.info("Request to get state received. Authentication = {}", authentication);
         var stateDto = stateService.getState(authentication);

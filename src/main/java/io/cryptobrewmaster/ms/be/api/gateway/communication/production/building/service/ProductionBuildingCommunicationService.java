@@ -1,19 +1,14 @@
 package io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.service;
 
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.academy.lab.yeast.AcademyYeastLabBuildingUiDto;
+import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.AccountBuildingStateUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.academy.lab.yeast.craft.history.AcademyYeastLabBuildingCraftHistoryUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.field.grain.GrainFieldBuildingUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.field.grain.craft.history.GrainFieldBuildingCraftHistoryUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.field.hops.HopsFieldBuildingUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.field.hops.craft.history.HopsFieldBuildingCraftHistoryUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.house.brew.BrewHouseBuildingUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.house.brew.craft.history.BrewHouseBuildingCraftHistoryUiDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.house.malt.MaltHouseBuildingUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.house.malt.craft.history.MaltHouseBuildingCraftHistoryUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.request.BuildingCraftStartedRequestDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.request.BuildingRentedRequestDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.response.BuildingCraftStartedResponseDto;
-import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.water.pump.WaterPumpBuildingUiDto;
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.water.pump.craft.history.WaterPumpBuildingCraftHistoryUiDto;
 import io.cryptobrewmaster.ms.be.library.dto.PageDto;
 
@@ -21,14 +16,6 @@ import io.cryptobrewmaster.ms.be.library.dto.PageDto;
  * The interface Production building communication service.
  */
 public interface ProductionBuildingCommunicationService {
-
-    /**
-     * Gets water pump building for ui.
-     *
-     * @param accountId the account id
-     * @return the water pump building for ui
-     */
-    WaterPumpBuildingUiDto getWaterPumpBuildingForUi(String accountId);
 
     /**
      * Gets all water pump building craft history for ui.
@@ -82,14 +69,6 @@ public interface ProductionBuildingCommunicationService {
     void completionCraftWaterPumpBuilding(String accountId, Long buildingCraftId);
 
     /**
-     * Gets grain field building for ui.
-     *
-     * @param accountId the account id
-     * @return the grain field building for ui
-     */
-    GrainFieldBuildingUiDto getGrainFieldBuildingForUi(String accountId);
-
-    /**
      * Gets all grain field building craft history for ui.
      *
      * @param accountId the account id
@@ -139,14 +118,6 @@ public interface ProductionBuildingCommunicationService {
      * @param buildingCraftId the building craft id
      */
     void completionCraftGrainFieldBuilding(String accountId, Long buildingCraftId);
-
-    /**
-     * Gets hops field building for ui.
-     *
-     * @param accountId the account id
-     * @return the hops field building for ui
-     */
-    HopsFieldBuildingUiDto getHopsFieldBuildingForUi(String accountId);
 
     /**
      * Gets all hops field building craft history for ui.
@@ -200,14 +171,6 @@ public interface ProductionBuildingCommunicationService {
     void completionCraftHopsFieldBuilding(String accountId, Long buildingCraftId);
 
     /**
-     * Gets academy yeast lab building for ui.
-     *
-     * @param accountId the account id
-     * @return the academy yeast lab building for ui
-     */
-    AcademyYeastLabBuildingUiDto getAcademyYeastLabBuildingForUi(String accountId);
-
-    /**
      * Gets all academy yeast lab building craft history for ui.
      *
      * @param accountId the account id
@@ -257,14 +220,6 @@ public interface ProductionBuildingCommunicationService {
      * @param buildingCraftId the building craft id
      */
     void completionCraftAcademyYeastLabBuilding(String accountId, Long buildingCraftId);
-
-    /**
-     * Gets malt house building for ui.
-     *
-     * @param accountId the account id
-     * @return the malt house building for ui
-     */
-    MaltHouseBuildingUiDto getMaltHouseBuildingForUi(String accountId);
 
     /**
      * Gets all malt house building craft history for ui.
@@ -318,14 +273,6 @@ public interface ProductionBuildingCommunicationService {
     void completionCraftMaltHouseBuilding(String accountId, Long buildingCraftId);
 
     /**
-     * Gets brew house building for ui.
-     *
-     * @param accountId the account id
-     * @return the brew house building for ui
-     */
-    BrewHouseBuildingUiDto getBrewHouseBuildingForUi(String accountId);
-
-    /**
      * Gets all brew house building craft history for ui.
      *
      * @param accountId the account id
@@ -367,5 +314,13 @@ public interface ProductionBuildingCommunicationService {
      * @param buildingCraftId the building craft id
      */
     void completionCraftBrewHouseBuilding(String accountId, Long buildingCraftId);
+
+    /**
+     * Gets account building state for ui.
+     *
+     * @param accountId the account id
+     * @return the account building state for ui
+     */
+    AccountBuildingStateUiDto getAccountBuildingStateForUi(String accountId);
 
 }

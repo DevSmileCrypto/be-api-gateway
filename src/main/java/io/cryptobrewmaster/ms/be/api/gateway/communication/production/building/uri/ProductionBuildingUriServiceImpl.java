@@ -21,16 +21,6 @@ public class ProductionBuildingUriServiceImpl implements ProductionBuildingUriSe
     private final ProductionBuildingProperties inventoryProperties;
 
     @Override
-    public URI getWaterPumpBuildingForUiByAccountIdUri(String accountId) {
-        return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
-                .path(inventoryProperties.getPath().getWaterPumpBuildingForUi())
-                .queryParam(ACCOUNT_ID_PARAM, accountId)
-                .build()
-                .encode()
-                .toUri();
-    }
-
-    @Override
     public URI getAllWaterPumpBuildingCraftHistoryForUiByAccountIdUri(String accountId, Integer page, Integer size) {
         return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
                 .path(inventoryProperties.getPath().getWaterPumpBuildingCraftHistoryForUi())
@@ -86,16 +76,6 @@ public class ProductionBuildingUriServiceImpl implements ProductionBuildingUriSe
                 .path(inventoryProperties.getPath().getWaterPumpBuildingCraftCompletion())
                 .queryParam(ACCOUNT_ID_PARAM, accountId)
                 .buildAndExpand(buildingCraftId)
-                .encode()
-                .toUri();
-    }
-
-    @Override
-    public URI getGrainFieldBuildingForUiByAccountIdUri(String accountId) {
-        return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
-                .path(inventoryProperties.getPath().getGrainFieldBuildingForUi())
-                .queryParam(ACCOUNT_ID_PARAM, accountId)
-                .build()
                 .encode()
                 .toUri();
     }
@@ -161,16 +141,6 @@ public class ProductionBuildingUriServiceImpl implements ProductionBuildingUriSe
     }
 
     @Override
-    public URI getHopsFieldBuildingForUiByAccountIdUri(String accountId) {
-        return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
-                .path(inventoryProperties.getPath().getHopsFieldBuildingForUi())
-                .queryParam(ACCOUNT_ID_PARAM, accountId)
-                .build()
-                .encode()
-                .toUri();
-    }
-
-    @Override
     public URI getAllHopsFieldBuildingCraftHistoryForUiByAccountIdUri(String accountId, Integer page, Integer size) {
         return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
                 .path(inventoryProperties.getPath().getHopsFieldBuildingCraftHistoryForUi())
@@ -226,16 +196,6 @@ public class ProductionBuildingUriServiceImpl implements ProductionBuildingUriSe
                 .path(inventoryProperties.getPath().getHopsFieldBuildingCraftCompletion())
                 .queryParam(ACCOUNT_ID_PARAM, accountId)
                 .buildAndExpand(buildingCraftId)
-                .encode()
-                .toUri();
-    }
-
-    @Override
-    public URI getAcademyYeastLabBuildingForUiByAccountIdUri(String accountId) {
-        return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
-                .path(inventoryProperties.getPath().getAcademyYeastLabBuildingForUi())
-                .queryParam(ACCOUNT_ID_PARAM, accountId)
-                .build()
                 .encode()
                 .toUri();
     }
@@ -301,16 +261,6 @@ public class ProductionBuildingUriServiceImpl implements ProductionBuildingUriSe
     }
 
     @Override
-    public URI getMaltHouseBuildingForUiByAccountIdUri(String accountId) {
-        return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
-                .path(inventoryProperties.getPath().getMaltHouseBuildingForUi())
-                .queryParam(ACCOUNT_ID_PARAM, accountId)
-                .build()
-                .encode()
-                .toUri();
-    }
-
-    @Override
     public URI getAllMaltHouseBuildingCraftHistoryForUiByAccountIdUri(String accountId, Integer page, Integer size) {
         return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
                 .path(inventoryProperties.getPath().getMaltHouseBuildingCraftHistoryForUi())
@@ -371,16 +321,6 @@ public class ProductionBuildingUriServiceImpl implements ProductionBuildingUriSe
     }
 
     @Override
-    public URI getBrewHouseBuildingForUiByAccountIdUri(String accountId) {
-        return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
-                .path(inventoryProperties.getPath().getBrewHouseBuildingForUi())
-                .queryParam(ACCOUNT_ID_PARAM, accountId)
-                .build()
-                .encode()
-                .toUri();
-    }
-
-    @Override
     public URI getAllBrewHouseBuildingCraftHistoryForUiByAccountIdUri(String accountId, Integer page, Integer size) {
         return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
                 .path(inventoryProperties.getPath().getBrewHouseBuildingCraftHistoryForUi())
@@ -426,6 +366,16 @@ public class ProductionBuildingUriServiceImpl implements ProductionBuildingUriSe
                 .path(inventoryProperties.getPath().getBrewHouseBuildingCraftCompletion())
                 .queryParam(ACCOUNT_ID_PARAM, accountId)
                 .buildAndExpand(buildingCraftId)
+                .encode()
+                .toUri();
+    }
+
+    @Override
+    public URI getAccountBuildingStateForUiByAccountIdUri(String accountId) {
+        return UriComponentsBuilder.fromUriString(inventoryProperties.getUri())
+                .path(inventoryProperties.getPath().getAccountBuildingStateForUi())
+                .queryParam(ACCOUNT_ID_PARAM, accountId)
+                .build()
                 .encode()
                 .toUri();
     }
