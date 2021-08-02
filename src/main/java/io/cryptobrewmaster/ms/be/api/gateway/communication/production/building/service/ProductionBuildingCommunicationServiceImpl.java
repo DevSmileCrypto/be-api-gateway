@@ -608,7 +608,7 @@ public class ProductionBuildingCommunicationServiceImpl extends BaseCommunicatio
     public AccountBuildingStateUiDto getAccountBuildingStateForUi(String accountId) {
         return performRequestWithResponse(
                 productionBuildingUriService.getAccountBuildingStateForUiByAccountIdUri(accountId),
-                HttpMethod.POST, AccountBuildingStateUiDto.class,
+                HttpMethod.GET, AccountBuildingStateUiDto.class,
                 new RequestLog(
                         "Request to get account building state for ui by account id send to %s ms. Account id = %s",
                         List.of(getMicroServiceName(), accountId),
