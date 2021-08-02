@@ -4,6 +4,9 @@ import io.cryptobrewmaster.ms.be.api.gateway.communication.account.balance.dto.A
 import io.cryptobrewmaster.ms.be.api.gateway.communication.account.balance.dto.criteria.AccountBalanceFetchedCriteriaDto;
 import io.cryptobrewmaster.ms.be.library.dto.PageDto;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+
 /**
  * The interface Account balance communication service.
  */
@@ -16,5 +19,17 @@ public interface AccountBalanceCommunicationService {
      * @return the page dto
      */
     PageDto<AccountBalanceUiDto> fetchAllAccountBalanceForUi(AccountBalanceFetchedCriteriaDto criteriaDto);
+
+    /**
+     * Fetch async all account balance for ui completable future.
+     *
+     * @param criteriaDto the criteria dto
+     * @param executor    the executor
+     * @return the completable future
+     */
+    default CompletableFuture<PageDto<AccountBalanceUiDto>> fetchAsyncAllAccountBalanceForUi(AccountBalanceFetchedCriteriaDto criteriaDto,
+                                                                                             Executor executor) {
+        return CompletableFuture.supplyAsync(() -> fetchAllAccountBalanceForUi(criteriaDto), executor);
+    }
 
 }

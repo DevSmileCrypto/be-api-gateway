@@ -12,6 +12,9 @@ import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.d
 import io.cryptobrewmaster.ms.be.api.gateway.communication.production.building.dto.water.pump.craft.history.WaterPumpBuildingCraftHistoryUiDto;
 import io.cryptobrewmaster.ms.be.library.dto.PageDto;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+
 /**
  * The interface Production building communication service.
  */
@@ -322,5 +325,17 @@ public interface ProductionBuildingCommunicationService {
      * @return the account building state for ui
      */
     AccountBuildingStateUiDto getAccountBuildingStateForUi(String accountId);
+
+    /**
+     * Gets async account building state for ui.
+     *
+     * @param accountId the account id
+     * @param executor  the executor
+     * @return the async account building state for ui
+     */
+    default CompletableFuture<AccountBuildingStateUiDto> getAsyncAccountBuildingStateForUi(String accountId,
+                                                                                           Executor executor) {
+        return CompletableFuture.supplyAsync(() -> getAccountBuildingStateForUi(accountId), executor);
+    }
 
 }
